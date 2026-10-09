@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chaojun Tan — Cross-domain Engineer</title>
+  <meta name="description" content="Cross-domain technical portfolio spanning cybersecurity, reverse engineering, software engineering, network & systems, SDR/satellite, and AI systems." />
+  <style>
+  :root{
+    --bg:#0b0e12;--panel:#11161c;--panel2:#151b22;--line:#27313a;
+    --text:#eef3f7;--muted:#9ba9b7;--soft:#c7d1da;--accent:#97ffd0;--accent2:#8fb8ff;
+    --radius:22px;--shadow:0 18px 50px rgba(0,0,0,.22);
+  }
+  *{box-sizing:border-box} html{scroll-behavior:smooth}
+  body{margin:0;background:
+    radial-gradient(circle at 12% -8%,rgba(143,184,255,.10),transparent 35rem),
+    radial-gradient(circle at 90% 9%,rgba(151,255,208,.07),transparent 28rem),
+    var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.6}
+  a{color:inherit;text-decoration:none} button{font:inherit}
+  .shell{width:min(1180px,calc(100% - 40px));margin-inline:auto}
+  .topbar{position:sticky;top:0;z-index:40;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:28px;min-height:72px;padding:0 max(20px,calc((100vw - 1180px)/2));background:rgba(11,14,18,.82);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.06)}
+  .brand{font-weight:900;letter-spacing:-.05em;font-size:1.2rem}.brand i{font-style:normal;color:var(--accent)}
+  .nav{display:flex;gap:22px;color:var(--muted);font-size:.92rem}.nav a:hover{color:var(--text)}
+  .actions{display:flex;gap:10px;flex-wrap:wrap}.btn{border:1px solid var(--line);border-radius:999px;padding:10px 16px;background:transparent;color:var(--text);cursor:pointer;transition:.18s ease}.btn:hover{transform:translateY(-1px)}.btn.primary{background:var(--text);color:#0b0e12;border-color:var(--text)}
+  .eyebrow{font-size:.76rem;font-weight:850;letter-spacing:.14em;color:var(--accent);text-transform:uppercase;margin-bottom:14px}
+  .hero{padding:92px 0 64px;display:grid;grid-template-columns:1.18fr .82fr;gap:56px;align-items:center}
+  h1,h2,h3,h4,p{margin-top:0} h1{font-size:clamp(3.8rem,8vw,7.2rem);line-height:.93;letter-spacing:-.07em;margin-bottom:24px} h2{font-size:clamp(2rem,4vw,3.2rem);line-height:1.02;letter-spacing:-.05em;margin-bottom:0}
+  h3{font-size:1.28rem;letter-spacing:-.025em}
+  .hero .subtitle{font-size:clamp(1.2rem,2.2vw,1.65rem);line-height:1.45;color:#d6dee6;max-width:820px;margin-bottom:18px}
+  .hero .positioning{font-size:1.02rem;color:var(--muted);max-width:780px;margin-bottom:24px}
+  .tagrow{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 30px}.tag{border:1px solid var(--line);background:rgba(255,255,255,.025);color:var(--soft);border-radius:999px;padding:8px 11px;font-size:.82rem}
+  .snapshot{border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.014));border-radius:var(--radius);padding:24px;box-shadow:var(--shadow)}
+  .snapshot-title{color:var(--muted);font-size:.8rem;margin-bottom:14px}.snapshot-grid{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:15px;overflow:hidden}.snapshot-grid>div{background:var(--panel);padding:17px}.snapshot-grid strong{display:block;margin-bottom:4px}.snapshot-grid span{color:var(--muted);font-size:.92rem}
+  .section{padding:84px 0}.section-head{display:grid;grid-template-columns:1fr .72fr;gap:48px;align-items:end;margin-bottom:34px}.section-head>p{color:var(--muted);margin-bottom:2px}
+  .domain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .domain{border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:22px;min-height:230px}.domain .num{font-size:.74rem;color:var(--accent2);font-weight:800;margin-bottom:24px}.domain h3{margin-bottom:9px}.domain p{color:var(--muted);font-size:.94rem;margin-bottom:14px}.domain .proof{color:#c8d1db;font-size:.88rem}.domain .proof b{color:var(--text)}
+  .principle{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.principle>div{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:22px}.principle span{display:block;color:var(--accent2);font-size:.75rem;font-weight:800;margin-bottom:20px}.principle p{color:var(--muted);margin:0;font-size:.92rem}
+  .filterbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.chip{border:1px solid var(--line);border-radius:999px;padding:7px 11px;background:rgba(255,255,255,.02);color:var(--muted);cursor:pointer;font-size:.8rem}.chip.active{background:var(--accent);border-color:var(--accent);color:#0b0e12}
+  .stack{display:grid;gap:14px}.card{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);overflow:hidden;transition:.18s ease}.card:hover{border-color:#394654;box-shadow:var(--shadow)}.card.hidden{display:none}
+  details{width:100%}summary{list-style:none;cursor:pointer;padding:24px 26px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}summary::-webkit-details-marker{display:none}.kicker{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:6px 10px;font-size:.75rem;color:var(--muted);margin-bottom:10px}.summary h3{font-size:clamp(1.15rem,2vw,1.55rem);margin:0 0 7px}.summary p{color:var(--muted);margin:0;max-width:900px}.plus{width:40px;height:40px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;font-size:1.3rem;transition:.18s ease;transform:rotate(0deg)}.card>details[open]>summary>.plus,.archive-box[open]>summary>.plus,.rf-timeline[open]>summary>.plus,.repo-map[open]>summary>.plus{transform:rotate(45deg)}.card>details[open]>summary,.archive-box[open]>summary,.rf-timeline[open]>summary,.repo-map[open]>summary{background:rgba(255,255,255,.012)}
+  .body{border-top:1px solid var(--line);background:var(--panel2);padding:26px}.twocol{display:grid;grid-template-columns:1.05fr .95fr;gap:40px}.body h4{font-size:.82rem;text-transform:uppercase;letter-spacing:.09em;color:var(--accent);margin-bottom:10px}.body p,.body li{color:#b7c3cf}.body li a{color:#cfe1ff}.body li a:hover{color:var(--accent)}.body ul{margin:0;padding-left:1.2rem}.body li+li{margin-top:7px}
+  .career{display:grid;gap:12px}.job{display:grid;grid-template-columns:180px 1fr;gap:24px;border-top:1px solid var(--line);padding-top:18px}.job:first-child{border-top:0;padding-top:0}.job .date{color:var(--muted);font-size:.9rem}.job h3{margin-bottom:4px}.job p{color:var(--muted);margin-bottom:0}
+  .bestfit{display:grid;grid-template-columns:1fr 1fr;gap:14px}.bestfit>div{border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:24px}.bestfit p{color:var(--muted);margin-bottom:0}
+  .contact{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end;padding-bottom:110px}.contact p{color:var(--muted);max-width:750px;margin-top:18px;margin-bottom:0}
+  .footer{border-top:1px solid var(--line);min-height:96px;display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:.86rem}
+
+  .archive-box{border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);overflow:hidden}
+  .archive-box>summary{padding:26px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+  .archive-box>summary h3{font-size:clamp(1.3rem,2vw,1.8rem);margin:0 0 6px}
+  .archive-box>summary p{color:var(--muted);margin:0}
+  .archive-box[open]>summary{border-bottom:1px solid var(--line);background:rgba(255,255,255,.012)}
+  .archive-body{padding:20px}
+  .archive-note{display:flex;justify-content:space-between;gap:16px;align-items:center;margin:0 0 16px;padding:0 4px}
+  .archive-note p{color:var(--muted);margin:0;font-size:.9rem}
+  .archive-list{display:grid;gap:10px}
+  .archive-item{display:grid;grid-template-columns:150px 1fr auto;gap:18px;align-items:start;border:1px solid var(--line);border-radius:16px;padding:17px;background:var(--panel2)}
+  .archive-item .year{color:var(--muted);font-size:.82rem;padding-top:2px}
+  .archive-item h4{margin:0 0 5px;font-size:1rem;text-transform:none;letter-spacing:-.01em;color:var(--text)}
+  .archive-item p{margin:0;color:var(--muted);font-size:.9rem}
+  .mini-tags{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end}
+  .mini-tags span{border:1px solid var(--line);border-radius:999px;padding:5px 8px;color:#b8c4cf;font-size:.7rem;white-space:nowrap}
+  .featured-mark{color:var(--accent);font-size:.72rem;font-weight:800;letter-spacing:.04em;margin-top:6px}.evidence-link{display:inline-flex;align-items:center;gap:6px;margin-top:10px;border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:var(--text);font-size:.78rem;background:rgba(255,255,255,.025)}.evidence-link:hover{border-color:#465565;background:rgba(255,255,255,.045)}
+
+
+  .rf-timeline{margin-top:22px;border-top:1px solid var(--line);padding-top:18px}
+  .rf-timeline>summary{padding:0;grid-template-columns:1fr auto;background:transparent!important}
+  .rf-timeline>summary h4{margin:0;color:var(--text);font-size:.95rem;letter-spacing:0;text-transform:none}
+  .rf-timeline>summary p{margin:3px 0 0;color:var(--muted);font-size:.86rem}
+  .rf-timeline-list{display:grid;gap:10px;margin-top:16px}
+  .rf-event{display:grid;grid-template-columns:120px 1fr auto;gap:14px;align-items:start;padding:14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.018)}
+  .rf-event time{color:var(--accent2);font-size:.78rem;font-weight:800}
+  .rf-event p{margin:0;color:#b7c3cf;font-size:.88rem}
+  .rf-event a{color:var(--accent);font-size:.78rem;white-space:nowrap}
+  .evolution{margin:22px 0 3px;padding:20px;border:1px solid #334453;border-radius:18px;background:linear-gradient(155deg,rgba(143,184,255,.065),rgba(151,255,208,.018))}
+  .evolution h4{margin:0 0 7px;font-size:1.02rem;letter-spacing:0;text-transform:none;color:var(--text)}
+  .evolution .lead{margin:0 0 16px;color:#c5d3df;font-size:.9rem}
+  .evo-stages{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .evo-stage{padding:14px 15px;border:1px solid var(--line);border-radius:13px;background:rgba(10,17,24,.54)}
+  .evo-stage b{display:block;margin-bottom:5px;color:var(--accent2);font-size:.8rem}
+  .evo-stage p{margin:0;color:#becbd8;font-size:.83rem;line-height:1.52}
+  .evo-flow{margin-top:12px;padding:16px;border:1px solid rgba(151,255,208,.22);border-radius:14px;background:rgba(7,21,22,.48)}
+  .evo-flow .diagram-title{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent);font-weight:850;margin:0 0 8px}
+  .evo-flow pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;font: .81rem/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;color:#d3e1e3}
+  .evo-mobileflow{display:none}
+  .evo-evidence{margin-top:12px;font-size:.82rem;color:#afbdcb;line-height:1.7}
+  .evo-evidence a{color:var(--accent2);text-decoration:underline;text-underline-offset:3px}
+  .evo-evidence strong{color:#d7e6f0}
+  .repo-map{margin-top:18px;border-top:1px solid var(--line);padding-top:18px}
+  .repo-map>summary{padding:0;grid-template-columns:1fr auto;background:transparent!important}
+  .repo-map>summary h4{margin:0;color:var(--text);font-size:.95rem;letter-spacing:0;text-transform:none}
+  .repo-map>summary p{margin:3px 0 0;color:var(--muted);font-size:.86rem}
+  .repo-map-body{margin-top:16px;display:grid;gap:16px}
+  .repo-group{border:1px solid var(--line);border-radius:16px;padding:16px;background:rgba(255,255,255,.014)}
+  .repo-group-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:10px}
+  .repo-group h5{margin:0;color:var(--accent);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+  .repo-group-note{color:var(--muted);font-size:.76rem}
+  .repo-list{display:grid;gap:8px}
+  .repo-item{display:grid;grid-template-columns:210px 1fr auto;gap:14px;align-items:start;padding:12px;border-top:1px solid rgba(255,255,255,.06)}
+  .repo-item:first-child{border-top:0}
+  .repo-name{font-weight:750;font-size:.88rem;word-break:break-word}
+  .repo-name a:hover{color:var(--accent)}
+  .repo-desc{color:#b7c3cf;font-size:.84rem;line-height:1.5}
+  .repo-role{border:1px solid var(--line);border-radius:999px;padding:4px 7px;color:var(--muted);font-size:.67rem;white-space:nowrap}
+  .repo-coupling{margin-top:2px;color:var(--muted);font-size:.77rem;line-height:1.45}
+  .repo-chronology{border-left:2px solid var(--accent2);padding:12px 14px;color:#b7c3cf;font-size:.85rem;background:rgba(143,184,255,.035);border-radius:0 12px 12px 0}
+
+  @media(max-width:980px){.nav{display:none}.hero{grid-template-columns:1fr}.section-head{grid-template-columns:1fr;gap:14px}.domain-grid{grid-template-columns:1fr 1fr}.principle{grid-template-columns:1fr 1fr}.twocol{grid-template-columns:1fr}.bestfit{grid-template-columns:1fr}.job{grid-template-columns:1fr}.archive-item{grid-template-columns:110px 1fr}.mini-tags{grid-column:2;justify-content:flex-start}.rf-event{grid-template-columns:105px 1fr}.rf-event a{grid-column:2}.repo-item{grid-template-columns:180px 1fr}.repo-role{grid-column:2;justify-self:start}.contact{grid-template-columns:1fr}}
+  @media(max-width:640px){.evo-stages{grid-template-columns:1fr}.evolution{padding:15px}.evo-flow pre{display:none}.evo-mobileflow{display:grid;gap:7px;font-size:.78rem;color:#d0e0e5}.evo-mobileflow div{border-radius:8px;padding:9px;background:rgba(255,255,255,.035);text-align:center}.evo-mobileflow .arrow{color:var(--accent2);background:transparent;padding:3px;font-size:.7rem}.evo-mobileflow span{color:var(--accent)}.shell{width:min(100% - 24px,1180px)}.topbar{padding-inline:12px;grid-template-columns:auto 1fr}.topbar .actions .btn:first-child{display:none}.topbar .actions{justify-content:flex-end}.domain-grid,.principle{grid-template-columns:1fr}.archive-item{grid-template-columns:1fr}.mini-tags{grid-column:1}.rf-event{grid-template-columns:1fr}.rf-event a{grid-column:1}.repo-item{grid-template-columns:1fr}.repo-role{grid-column:1}.repo-group-head{align-items:flex-start;flex-direction:column;gap:4px}.hero{padding-top:58px}h1{font-size:3.55rem}.footer{flex-direction:column;align-items:flex-start;justify-content:center;gap:8px}}
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#top">CT<i>.</i></a>
+  <nav class="nav">
+    <a href="#profile">Profile</a>
+    <a href="#domains">Capabilities</a>
+    <a href="#work">Selected Work</a>
+    <a href="#archive">Archive</a>
+    <a href="#career">Career</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="actions">
+    <button class="btn" id="expandTop" type="button">Expand all</button>
+    <a class="btn primary" href="#contact">Contact</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="shell hero">
+    <div>
+      <div class="eyebrow">Cross-domain technical portfolio</div>
+      <h1>Chaojun Tan</h1>
+      <p class="subtitle">
+        Cross-domain engineer working across cybersecurity, reverse engineering,
+        software engineering, network & systems, SDR / satellite technology, and AI / LLM systems.
+      </p>
+      <p class="positioning">
+        My strength is not narrow specialization in one stack. I move across technical domains,
+        build a working model of unfamiliar systems, and turn that understanding into practical,
+        testable solutions.
+      </p>
+      <div class="tagrow">
+        <span class="tag">Cybersecurity</span>
+        <span class="tag">Reverse Engineering</span>
+        <span class="tag">Software Engineering</span>
+        <span class="tag">Network & Systems</span>
+        <span class="tag">SDR / Satellite</span>
+        <span class="tag">AI / LLM Systems</span>
+      </div>
+      <div class="actions">
+        <a class="btn primary" href="#domains">See capability map</a>
+        <button class="btn" id="expandHero" type="button">Open everything</button>
+      </div>
+    </div>
+
+    <aside class="snapshot">
+      <div class="snapshot-title">30-second overview</div>
+      <div class="snapshot-grid">
+        <div><strong>Professional background</strong><span>3+ years of formal professional experience across cybersecurity, reverse engineering and security engineering.</span></div>
+        <div><strong>Beyond job titles</strong><span>Long-term, project-based independent work in software, systems, protocols and low-level engineering.</span></div>
+        <div><strong>Current direction</strong><span>AI / LLM systems engineering, applied research and self-hosted technical platforms.</span></div>
+        <div><strong>Best fit</strong><span>Roles that value breadth, systems thinking, rapid domain transfer and unusual problem solving.</span></div>
+      </div>
+    </aside>
+  </section>
+
+  <section id="profile" class="shell section">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Profile</div>
+        <h2>One working pattern across several domains</h2>
+      </div>
+      <p>
+        The technologies changed over time; the operating model stayed consistent:
+        investigate what is really happening, form a testable model, build around the actual constraints,
+        and validate with real systems, data or signals.
+      </p>
+    </div>
+
+    <div class="principle">
+      <div><span>01 · Investigate</span><p>Start from observable behavior, interfaces, signals, traffic or artifacts rather than assumptions.</p></div>
+      <div><span>02 · Model</span><p>Turn incomplete evidence into a compact technical model that can be tested and refined.</p></div>
+      <div><span>03 · Build</span><p>Implement software, automation, integration or tooling around the real constraints.</p></div>
+      <div><span>04 · Validate</span><p>Use repeatable tests, real workloads, operational outcomes or research evidence to close the loop.</p></div>
+    </div>
+  </section>
+
+  <section id="domains" class="shell section">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Capability map</div>
+        <h2>Six domains, each backed by hands-on work</h2>
+      </div>
+      <p>
+        This is the quick-read layer for recruiters and hiring managers. The deeper evidence lives in the sections below.
+      </p>
+    </div>
+
+    <div class="domain-grid">
+      <article class="domain">
+        <div class="num">01</div>
+        <h3>Cybersecurity</h3>
+        <p>Authorized web security testing, attack-surface analysis, malware logic analysis, incident-oriented investigation and remediation support.</p>
+        <div class="proof"><b>Evidence:</b> 3+ years across professional security and reverse-engineering roles.</div>
+      </article>
+      <article class="domain">
+        <div class="num">02</div>
+        <h3>Reverse Engineering</h3>
+        <p>Android / JNI / native library analysis, binary interfaces, file and data-stream formats, manual structure inference, firmware logic and encryption-mechanism investigation.</p>
+        <div class="proof"><b>Evidence:</b> malware analysis, JNI / so research, ARM firmware analysis, encrypted-media recovery.</div>
+      </article>
+      <article class="domain">
+        <div class="num">03</div>
+        <h3>Software Engineering</h3>
+        <p>Python, Java, C, C++, JavaScript and VB/VB.NET across desktop, backend, web, automation, custom data-stream decoders, monitoring dashboards and technical tooling.</p>
+        <div class="proof"><b>Evidence:</b> multi-component systems, independent software projects and tested production-style prototypes.</div>
+      </article>
+      <article class="domain">
+        <div class="num">04</div>
+        <h3>Network & Systems</h3>
+        <p>Linux, Docker, IPv4/IPv6, routing, VPNs, OpenWrt, reverse proxies, network-flow handling and cross-platform integration.</p>
+        <div class="proof"><b>Evidence:</b> gateway-level traffic handling, tunnels, multi-environment deployments and long-running self-hosted systems.</div>
+      </article>
+      <article class="domain">
+        <div class="num">05</div>
+        <h3>SDR / Satellite</h3>
+        <p>RF spectrum scanning, signal-type analysis, radio reception, antenna / feed tuning, decoding pipelines, Dockerized delivery and receiver automation.</p>
+        <div class="proof"><b>Evidence:</b> FY-2G / FY-2H reception and decoding, FY-4A demodulation, GK-2A HRIT RF experiments, public Himawari / GK-2A tooling and SDR firmware analysis.</div>
+      </article>
+      <article class="domain">
+        <div class="num">06</div>
+        <h3>AI / LLM Systems & Research</h3>
+        <p>Multi-provider model integration, local/cloud inference, tool calling, model routing, speech pipelines, ML experiments and research workflows.</p>
+        <div class="proof"><b>Evidence:</b> Technical Workbench, JP-DTT WebBridge and OSA acoustic research.</div>
+      </article>
+    </div>
+  </section>
+
+  <section id="work" class="shell section">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Selected work</div>
+        <h2>Start shallow. Go deep only where it matters.</h2>
+      </div>
+      <p>
+        Each featured project begins with a recruiter-readable summary. Technical details stay collapsed until the reader chooses to open them; the complete public project history is preserved in the archive below.
+      </p>
+    </div>
+
+    <div class="filterbar">
+      <button class="chip active" data-filter="all" type="button">All</button>
+      <button class="chip" data-filter="ai" type="button">AI / LLM</button>
+      <button class="chip" data-filter="software" type="button">Software</button>
+      <button class="chip" data-filter="security" type="button">Security / RE</button>
+      <button class="chip" data-filter="network" type="button">Network / Systems</button>
+      <button class="chip" data-filter="sdr" type="button">SDR / Satellite</button>
+      <button class="chip" data-filter="research" type="button">Research</button>
+    </div>
+
+    <div class="stack">
+      <article class="card" data-category="ai software network">
+        <details>
+          <summary>
+            <div class="summary">
+              <span class="kicker">AI / LLM SYSTEMS · SOFTWARE</span>
+              <h3>Technical Workbench — multi-model AI engineering platform</h3>
+              <p>Self-hosted engineering workspace for long-running technical projects, with provider-neutral model access, persistent state, recoverable runs, tools and artifacts.</p>
+            </div><span class="plus">+</span>
+          </summary>
+          <div class="body">
+            <div class="twocol">
+              <div>
+                <h4>What I built</h4>
+                <ul>
+                  <li>Unified cloud and local models through a provider-neutral message / tool-call / response / event layer.</li>
+                  <li>Supported OpenAI-compatible endpoints, OpenRouter, Ollama and llama.cpp.</li>
+                  <li>Designed project / thread / run / turn / tool-call lifecycles with persistence, approvals, pause/resume and failure recovery.</li>
+                  <li>Added workspace, artifact, file-library, snapshot and import/export flows.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Why it matters</h4>
+                <p>This project demonstrates AI engineering as a system-design problem rather than a single API integration: models, state, tools, files, recovery and auditability are handled together.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <article class="card" data-category="ai software research">
+        <details>
+          <summary>
+            <div class="summary">
+              <span class="kicker">AI / SPEECH · SOFTWARE</span>
+              <h3>JP-DTT WebBridge — live multilingual subtitle pipeline</h3>
+              <p>Real-time pipeline for Japanese TV HLS playback: browser-side audio capture, VAD, GPU ASR, language checking, LLM translation and bilingual subtitle delivery.</p>
+            </div><span class="plus">+</span>
+          </summary>
+          <div class="body">
+            <div class="twocol">
+              <div>
+                <h4>Implementation</h4>
+                <ul>
+                  <li>HLS.js / HTML5 Video + MSE, Web Audio API, WebSocket, FastAPI, Uvicorn and HTTPX.</li>
+                  <li>Virtual-machine WebBridge connected to a host GPU worker.</li>
+                  <li>faster-whisper CUDA FP16 for ASR; 14B GGUF via llama.cpp for persistent translation and quality correction.</li>
+                  <li>About 9,845 lines of code; 47 automated tests across WebBridge and GPU Worker.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>What it proves</h4>
+                <p>End-to-end software engineering across browser media, networking, backend services, GPU inference, local LLMs, scheduling, isolation and graceful degradation.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <article class="card" data-category="security">
+        <details>
+          <summary>
+            <div class="summary">
+              <span class="kicker">CYBERSECURITY · REVERSE ENGINEERING</span>
+              <h3>Professional security analysis and reverse engineering</h3>
+              <p>Three consecutive professional roles covering web security testing, malware / binary analysis, incident-oriented investigation and technical reporting.</p>
+            </div><span class="plus">+</span>
+          </summary>
+          <div class="body">
+            <div class="twocol">
+              <div>
+                <h4>Representative work</h4>
+                <ul>
+                  <li>Authorized web security testing across injection, access-control, upload and information-disclosure risks.</li>
+                  <li>Static analysis of malware, worms and infected samples to reconstruct behavior and propagation logic.</li>
+                  <li>Reverse-engineering support for abnormal activity and infected-host investigation.</li>
+                  <li>Risk grading, remediation guidance, retesting and technical documentation.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Scope</h4>
+                <p>This is a core professional background, not a side skill: security and reverse engineering were the main focus across my formal roles from 2022 to 2025.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <article class="card" data-category="software security network">
+        <details>
+          <summary>
+            <div class="summary">
+              <span class="kicker">SOFTWARE · SECURITY · NETWORK</span>
+              <h3>Internal network traffic inspection tool</h3>
+              <p>Windows command-line tool for identifying sensitive plaintext transmission and prohibited-domain access from mirrored enterprise network traffic.</p>
+            </div><span class="plus">+</span>
+          </summary>
+          <div class="body">
+            <div class="twocol">
+              <div>
+                <h4>Implementation</h4>
+                <ul>
+                  <li>C / C++ protocol recognition and parsing for HTTP and DNS.</li>
+                  <li>Keyword rules to flag likely plaintext-password interactions.</li>
+                  <li>DNS-assisted identification of explicitly prohibited domain connections.</li>
+                  <li>Structured text output for audit and review.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Why it belongs here</h4>
+                <p>This is a compact example of several domains meeting in one project: packet-level networking, C/C++ development, security requirements and operational auditability.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <article class="card" data-category="sdr software network">
+        <details>
+          <summary>
+            <div class="summary">
+              <span class="kicker">SDR / SATELLITE · SYSTEMS</span>
+              <h3>Weather-satellite reception engineering & RF experimentation</h3>
+              <p>From hands-on Windows receiver troubleshooting and automation to a rebuilt Linux ground station with modular, cross-container receiving, data access, publishing and operations; complemented by independent RF experiments.</p>
+            </div><span class="plus">+</span>
+          </summary>
+          <div class="body">
+            <div class="twocol">
+              <div>
+                <h4>Engineering work</h4>
+                <ul>
+                  <li>Remotely helped troubleshoot an operator’s receiving setup, then engineered a Windows TSDuck → dump rotation → himawari-rx → imagery / SATAID pipeline; later ported the automation to Linux — <a href="https://github.com/tcjj3/himawari-rx_auto_scripts" target="_blank" rel="noopener noreferrer"><em>himawari-rx_auto_scripts</em> ↗</a>.</li>
+                  <li>After the operator wiped and reinstalled his mini-server for new research, remotely helped rebuild and extend the Linux receiving environment; integrated the automation into <a href="https://github.com/tcjj3/Himawari-8_Docker" target="_blank" rel="noopener noreferrer"><em>Himawari-8_Docker</em> ↗</a>.</li>
+                  <li>Evolved the upstream monolithic GK-2A image into a configurable receiving / processing node; added receiver-off processing mode, runtime image products, selective proxying, and multi-architecture support — <a href="https://github.com/tcjj3/GK-2A_Hirez_Docker" target="_blank" rel="noopener noreferrer"><em>GK-2A_Hirez_Docker</em> ↗</a>.</li>
+                  <li>Separated shared Docker-volume access from receiver lifecycles: cross-satellite <em>File_Manager</em>, independent Samba / FTP <em>File_Server</em>, customized Web presentation, remote access and operations.</li>
+                  <li>Tools were used by other real-world HimawariCast operators; upstream <em>himawari-rx</em> credits <strong>@tcjj3 for software testing and scripting</strong>. Japan-based receiver operator John Bell publicly described the automation as “Very convenient”.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Hands-on RF research</h4>
+                <ul>
+                  <li>Successfully received and decoded FY-2G / FY-2H using a 100×60 cm grid antenna.</li>
+                  <li>Demodulated FY-4A at 1697 MHz with SatDump using a 1.5 m dish and patch feed during public testing.</li>
+                  <li>Iterated GK-2A HRIT reception through feed positioning, polarization correction and SNR tuning; also tested SatDump, goestools and GNU Radio.</li>
+                  <li>Documented real-world constraints including feed quality, dish F/D mismatch and 4G LTE interference around the 1695 MHz experiments.</li>
+                  <li>Designed the broader radio stack around an offline-first principle: RF reception, decoding and local timing should remain usable without an Internet connection.</li>
+                  <li>Extended reception experiments beyond geostationary weather satellites to successful polar-orbit HRPT reception; built a 1.7 GHz LHCP helical feed and explored X-band feeds/front-end hardware. X-band reception was not successfully completed before relocating to Hong Kong.</li>
+                  <li>Prepared hardware for a separate planned automated NOAA APT / METEOR polar-orbit station—motorized antenna tracking, precise local timing and Doppler-aware scheduling—but the tracking stack was not completed or field-tested.</li>
+                </ul>
+                <a class="evidence-link" href="https://x.com/tcjj3" target="_blank" rel="noopener noreferrer">Public RF research log on X ↗</a>
+              </div>
+            </div>
+
+            <section class="evolution" aria-label="Ground-station system evolution">
+              <h4>System evolution · from remote Windows debugging to a modular ground station</h4>
+              <p class="lead">This collaboration began with remote experiments on a <strong>Windows laptop</strong>, continued through a rebuilt Linux mini-server, and evolved into independent receiving, storage, publishing and monitoring services. My collaborator had operated a mini-server before we met; he later wiped it for new research, so the subsequent Linux deployment was a fresh build rather than an incremental change to the old installation.</p>
+              <div class="evo-stages">
+                <div class="evo-stage"><b>01 · Sep 2020 — getting involved</b><p>First learned about GK-2A reception from an experienced operator, then offered help after he encountered a TBS5520SE driver / installation problem. This opened a two-way collaboration: RF domain learning in exchange for troubleshooting and software-engineering help.</p></div>
+                <div class="evo-stage"><b>02 · Early work — remote Windows laptop</b><p>Built a multi-process one-click workflow around TSDuck capture, timed stop/restart, dump handoff, concurrent decoding, image conversion and optional HRIT → SATAID. <code>start.vbs</code>, Batch scripts and separate CMD sessions preserve this original Windows-first design.</p></div>
+                <div class="evo-stage"><b>03 · Later — mini-server reinstallation and Linux migration</b><p>The operator formatted the mini-server’s disk to pursue new research and reinstalled the OS. Remotely helped deploy the receiving environment again, adapted paths, TBS DVB frontends and processing dependencies, and turned the working Windows workflow into reusable Linux scripts / Docker services.</p></div>
+                <div class="evo-stage"><b>04 · 2021 — composable deployment architecture</b><p>Moved beyond the upstream all-in-one GK-2A image. Used named Docker volumes to let GK-2A and Himawari receivers produce data independently while separate file-management, SMB/FTP and website containers consumed and presented it. A collaborator’s 4 May 2021 field post shows <code>himawari-rx</code> and <code>xrit-rx</code> folders under one browser-based file interface on a 24/7 receiver server. Preserved all-in-one compatibility and added configurable proxies, image products, templates and public-access options.</p></div>
+              </div>
+              <div class="evo-flow"><div class="diagram-title">Architectural separation · shared data, independent services</div><pre>GK-2A RF / decoder ──► GK-2A receiver container ─┐
+                                                  ├─► Docker named volumes ─┬─► File Manager · Caddy / Filebrowser
+HimawariCast ───────► Himawari receiver container ─┘                         ├─► File Server · SMB / FTP
+                                                                            └─► Website · custom templates / latest imagery
+
+                                            Remote dashboard/API · optional proxy / tunnel
+                                            Later: separate goesrecv reception-health monitor</pre>
+                <div class="evo-mobileflow">
+                  <div>GK-2A receiver <span>+</span> Himawari receiver</div>
+                  <div class="arrow">↓ shared named Docker volumes ↓</div>
+                  <div>File Manager <span>·</span> SMB / FTP File Server <span>·</span> Website</div>
+                  <div class="arrow">↓ optional remote access / dashboard APIs ↓</div>
+                  <div>Later: goesrecv reception-health monitoring</div>
+                </div>
+              </div>
+              <div class="evo-evidence"><strong>Real-world use and collaboration:</strong> <a href="https://x.com/yanderen2/status/1343050045873037313" target="_blank" rel="noopener noreferrer">one-click scripts in use (Dec 2020) ↗</a> · <a href="https://x.com/yanderen2/status/1344187044029812736" target="_blank" rel="noopener noreferrer">SATAID integration ↗</a> · <a href="https://x.com/yanderen2/status/1360372988823019520" target="_blank" rel="noopener noreferrer">Himawari Web delivery ↗</a> · <a href="https://x.com/yanderen2/status/1363488658175766531" target="_blank" rel="noopener noreferrer">GK-2A + Himawari Web view ↗</a> · <a href="https://x.com/eswnl/status/1389134303401893890" target="_blank" rel="noopener noreferrer">24/7 dual-receiver file view (May 2021, collaborator reply) ↗</a> · <a href="https://x.com/eswnl/status/1390139541663617026" target="_blank" rel="noopener noreferrer">independent operator using @tcjj3 scripts (May 2021) ↗</a>. A later <a href="https://x.com/eswnl/status/1398574597050535941" target="_blank" rel="noopener noreferrer">May 29 post ↗</a> also documents <em>xrit2pic</em> image-processing experiments on a Windows desktop with several command windows.</div>
+            </section>
+
+            <details class="rf-timeline">
+              <summary>
+                <div>
+                  <h4>Public RF / SDR research timeline</h4>
+                  <p>Selected milestones from the archived @tcjj3 research log; open only if you want the chronology.</p>
+                </div>
+                <span class="plus">+</span>
+              </summary>
+              <div class="rf-timeline-list">
+                <div class="rf-event">
+                  <time>2021.01–02</time>
+                  <p>Built and released cross-platform Himawari receiving automation; documented 1,789 GK-2A images received over 2021-02-05 to 02-18 and a 24/7 mini-server receiving / colouring pipeline.</p>
+                  <a href="https://x.com/tcjj3/status/1364038131066884096" target="_blank" rel="noopener noreferrer">Original ↗</a>
+                </div>
+                <div class="rf-event">
+                  <time>2021.03–04</time>
+                  <p>Down-converted GK-2A from 1692.140 MHz to 32.140 MHz and compared multiple SDR/input paths. Public testing on 2021-04-06 recorded: RTL-SDR + goestools worked, RTL-SDR + GNU Radio failed, while RSP1A + GNU Radio and RSP1A → RSP_TCP → GNU Radio both worked. In that setup, the failing path was the one whose inter-component handoff used UDP; the successful alternatives either accessed the SDR natively or transported the stream over TCP. The observed contrast drew attention to the UDP input boundary and downstream packet handling in that specific receiver stack; it did not establish that all UDP-based receiving systems would fail.</p>
+                  <a href="https://x.com/tcjj3/status/1379363831105744900" target="_blank" rel="noopener noreferrer">Original ↗</a>
+                </div>
+                <div class="rf-event">
+                  <time>2021.05 → later</time>
+                  <p>Improved GK-2A signal quality from 92% to 98% by changing feeds, while testing rooftop RF placement, 10 m cable, Bias-Tee / DC isolation and power arrangements. Built a 1.7 GHz LHCP helix for HRPT (13 May), achieved polar-orbit HRPT reception, and began investigating X-band hardware (feed and components documented on 17 May). X-band receiving experiments remained unfinished when I relocated to Hong Kong; X-band reception is not claimed as a completed result.</p>
+                  <a href="https://x.com/tcjj3/status/1390580658884333573" target="_blank" rel="noopener noreferrer">GK-2A RF tests ↗</a> · <a href="https://x.com/tcjj3/status/1392801754190802945" target="_blank" rel="noopener noreferrer">HRPT feed ↗</a> · <a href="https://x.com/tcjj3/status/1394250472358174721" target="_blank" rel="noopener noreferrer">X-band equipment ↗</a>
+                </div>
+                <div class="rf-event">
+                  <time>2021.07–08</time>
+                  <p>Detected FY-2G at 1687.5 MHz and iterated a custom GK-2A down-converter from an ADF4351 + SPF5189 design to SAWBird+ GOES LNA + HMC213 + LMX2594, while characterizing SNR loss and heat issues.</p>
+                  <a href="https://x.com/tcjj3/status/1425714796192616450" target="_blank" rel="noopener noreferrer">Original ↗</a>
+                </div>
+                <div class="rf-event">
+                  <time>2023.06–07</time>
+                  <p>Expanded to a 1.5 m dish and C/L-band experiments: HimawariCast at 4148 MHz, JCSAT-2B beacon measurement, feed comparison, and investigation of 1667–1700 MHz interference attributed to nearby LTE base stations.</p>
+                  <a href="https://x.com/tcjj3/status/1675811390488190976" target="_blank" rel="noopener noreferrer">Original ↗</a>
+                </div>
+                <div class="rf-event">
+                  <time>2023.05–06</time>
+                  <p>Developed and operationally deployed <a href="https://github.com/tcjj3/goesrecv-lock-monitor" target="_blank" rel="noopener noreferrer"><em>goesrecv-lock-monitor</em> ↗</a> for the rooftop GK-2A receiver. Controlled antenna-offset tests showed that large Viterbi disagreement could still coexist with normal reception while Reed-Solomon corrections remained zero; once <code>reed_solomon_errors</code> became non-zero, useful reception was usually already close to the FEC cliff. The original service used that stricter reception-health threshold for HTTP status telemetry, event history and e-mail alerts. In 2026.10 it was sanitized, hardened with dwell-time / hysteresis, alert cooldown and exact nanomsg framing, then released publicly.</p>
+                  <span style="color:var(--muted);font-size:.78rem;white-space:nowrap">PUBLIC · 2026 HARDENED</span>
+                </div>
+                <div class="rf-event">
+                  <time>2023.09</time>
+                  <p>Successfully decoded FY-2G / FY-2H with a 100×60 cm grid antenna; continued GK-2A HRIT feed / F-D tuning and raised HRIT SNR to about 3 dB.</p>
+                  <a href="https://x.com/tcjj3/status/1702879451657449680" target="_blank" rel="noopener noreferrer">Original ↗</a>
+                </div>
+                <div class="rf-event">
+                  <time>2023.09.23</time>
+                  <p>Demodulated FY-4A at 1697 MHz with SatDump using a 1.5 m dish and patch feed after previous demodulation attempts had failed.</p>
+                  <a href="https://x.com/tcjj3/status/1705498508890132920" target="_blank" rel="noopener noreferrer">Original ↗</a>
+                </div>
+                <div class="rf-event">
+                  <time>2024.11.30</time>
+                  <p>Published an early-stage NOAA APT encoding experiment using custom images, followed by a separate technical-details post; later revisions improved the image reconstruction quality.</p>
+                  <a href="https://x.com/tcjj3/status/1862784283909480598" target="_blank" rel="noopener noreferrer">Original ↗</a>
+                </div>
+              </div>
+            </details>
+
+            <details class="repo-map">
+              <summary>
+                <div>
+                  <h4>Related GitHub repository map</h4>
+                  <p>Connected repositories organized by architectural responsibility: receiving, automation, shared data, presentation, operations and experimental extensions.</p>
+                </div>
+                <span class="plus">+</span>
+              </summary>
+              <div class="repo-map-body">
+                <div class="repo-chronology">
+                  <strong>System lineage (repository milestones, not career start dates):</strong> Windows Himawari automation → Linux migration and Himawari receiver packaging → GK-2A/Himawari data exported through named Docker volumes → separate Web file manager, SMB/FTP file server, custom Web presentation and external access → receiver-health monitoring → later transport-reliability experiments. The original GK-2A image was an upstream starting point; the multi-container service boundaries, cross-receiver data access, custom processing and deployment options were substantial subsequent engineering work.
+                </div>
+
+                <div class="repo-chronology">
+                  <strong>Deployment topology:</strong> RF hardware / SDR → independent receiver / decoder containers → shared named volumes → independent file manager, file server or Web presentation services → optional ngrok / FRP exposure to external users. Because the rooftop antenna could be shifted by strong wind or accidentally knocked out of alignment, the system later gained an unattended lock-state monitor so loss of reception could be noticed quickly before too many weather images were missed. A separate experimental branch placed the SDR at a router / edge device and transported the USB device over the network with VirtualHere; that branch was retired after bandwidth and packet-loss testing.
+                </div>
+
+                <div class="repo-chronology">
+                  <strong>Design principle — zero network dependency:</strong> the radio stack was deliberately designed so reception, decoding and local timekeeping could continue with no Internet connection. This principle grew out of severe cross-border network-access disruption experienced in 2020. For planned polar-orbit work such as NOAA APT / METEOR reception, reliable local UTC also mattered for pass prediction, scheduled capture and Doppler / frequency-compensation workflows, so a GPS-backed local NTP source became part of the broader radio-system architecture.
+                </div>
+
+                <div class="repo-chronology">
+                  <strong>Planned extension — autonomous polar-orbit ground station:</strong> the intended next branch was an automatic NOAA APT / METEOR receiving station using precise local time, predicted passes, motorized antenna pointing / tracking, Doppler compensation, SDR capture and automatic decoding. A stepper-motor pan/tilt mechanism, control MCU, programmer and later a commercial antenna rotator were prepared, but the tracking/control stack was never completed or properly field-tested before the receiving environment changed after relocation.
+                </div>
+
+                <section class="repo-group">
+                  <div class="repo-group-head"><h5>Core satellite receiving & decoding</h5><span class="repo-group-note">Direct functional/code coupling</span></div>
+                  <div class="repo-list">
+                    <div class="repo-item">
+                      <div class="repo-name"><a href="https://github.com/tcjj3/himawari-rx_auto_scripts" target="_blank" rel="noopener noreferrer">himawari-rx_auto_scripts ↗</a></div>
+                      <div><div class="repo-desc">Cross-platform orchestration layer around <em>himawari-rx</em>: TSDuck capture loops, automatic decode / image generation, HRIT→SATAID conversion, cleanup, retry / exit handling, and Linux compatibility patching of upstream path separators.</div><div class="repo-coupling">Created 2020.12; later pulled directly into <strong>Himawari-8_Docker</strong>, so this is a foundational automation component rather than a standalone convenience script.</div></div>
+                      <span class="repo-role">CORE · AUTOMATION</span>
+                    </div>
+                    <div class="repo-item">
+                      <div class="repo-name"><a href="https://github.com/tcjj3/Himawari-8_Docker" target="_blank" rel="noopener noreferrer">Himawari-8_Docker ↗</a></div>
+                      <div><div class="repo-desc">Containerized Himawari receiving environment that builds SRT / TSDuck, installs <em>himawari-rx</em>, bundles the automation scripts above, schedules image conversion, and exposes results through Caddy and filebrowser.</div><div class="repo-coupling">Created 2021.02; explicit source-level dependency on <strong>himawari-rx_auto_scripts</strong>.</div></div>
+                      <span class="repo-role">CORE · INTEGRATION</span>
+                    </div>
+                    <div class="repo-item">
+                      <div class="repo-name"><a href="https://github.com/tcjj3/GK-2A_Hirez_Docker" target="_blank" rel="noopener noreferrer">GK-2A_Hirez_Docker ↗</a></div>
+                      <div><div class="repo-desc">Evolved <em>bclswl0827/GK2A-Docker</em> from a coupled receiver / decoder / Web image into a configurable GK-2A receiving and processing node: upstream decoder patches, multi-architecture builds, Airspy / RTL-SDR controls, Sanchez high-resolution assets, selectable post-processing schedules, latest-image / JSON(P) outputs and dashboard / filebrowser proxies.</div><div class="repo-coupling">Preserves single-container use while allowing <code>NORECEIVE</code> processing-only deployment, externally hosted dashboards and shared Docker-volume access by separate presentation services. The architectural work extends well beyond using an existing template.</div></div>
+                      <span class="repo-role">CORE · GK-2A</span>
+                    </div>
+                    <div class="repo-item">
+                      <div class="repo-name"><a href="https://github.com/tcjj3/My_Scripts" target="_blank" rel="noopener noreferrer">My_Scripts ↗</a></div>
+                      <div><div class="repo-desc">Mixed personal scripts, including a directly relevant Linux helper that installs Wine/.NET and runs <em>goesrecv-monitor</em>, allowing GK-2A monitoring from a Linux server without keeping a Windows host in the loop.</div><div class="repo-coupling">Repository created 2021.04; the public research log from the same date explicitly describes this GK-2A monitor use.</div></div>
+                      <span class="repo-role">DIRECT · OPERATIONS</span>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="repo-group">
+                  <div class="repo-group-head"><h5>Experimental transport & reliability branch</h5><span class="repo-group-note">Public source · proof of concept · data forwarding validated · not field-integrated</span></div>
+                  <div class="repo-list">
+                    <div class="repo-item">
+                      <div class="repo-name"><a href="https://github.com/tcjj3/File2TCP" target="_blank" rel="noopener noreferrer">File2TCP ↗</a></div>
+                      <div>
+                        <div class="repo-desc">Later transport experiment aimed at replacing the unreliable live UDP handoff with an order-preserving input path. In the original HimawariCast tests, the observed contrast was clear: TSDuck → UDP → himawari-rx produced packet loss / reordering symptoms, while TSDuck → packet-dump file → <code>himawari-rx --file</code> processed the same type of stream normally. File2TCP therefore kept the working file-style output path, but replaced disk replay with a named FIFO plus TCP transport so the byte stream could remain ordered while becoming streamable.</div>
+                        <div class="repo-coupling">Local source files are dated 2024-06-05. The architecture was: <strong>TSDuck → named FIFO → C sender → TCP → modified himawari-rx input stack</strong>. The rationale came directly from the behavior documented in <a href="https://github.com/sam210723/himawari-rx/issues/2" target="_blank" rel="noopener noreferrer">himawari-rx issue #2 ↗</a>: UDP input was the failing path; file input was the working path, so the design goal was simply to feed the decoder through an ordered transport. A separate 2021 GK-2A/GNU Radio study had already produced the same transport-level pattern: the UDP-coupled receiver path failed, while native device access and an <strong>RSP_TCP</strong>-based path succeeded. Taken together, these experiments motivated an ordered-transport alternative for the specific receiver implementations under test. They do not imply UDP is inherently unsuitable: an application that reconstructs packet order and validates its own data stream can be robust to out-of-order UDP delivery. Those experiments alone did not establish whether loss, reordering, or downstream handling was responsible for each failure. Because TCP is a byte stream rather than a datagram API, himawari-rx would need a small input-layer change to read the same length-framed packet stream that its <code>--file</code> mode already parses. The FIFO→TCP forwarding code was tested and data forwarding worked, but the modified himawari-rx input path and end-to-end satellite reception test were never completed after the original receiving environment was no longer available.</div>
+                      </div>
+                      <span class="repo-role">PUBLIC POC · ORDERED TRANSPORT</span>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="repo-group">
+                  <div class="repo-group-head"><h5>Presentation & data distribution</h5><span class="repo-group-note">Directly serves GK-2A / Himawari outputs</span></div>
+                  <div class="repo-list">
+                    <div class="repo-item">
+                      <div class="repo-name"><a href="https://github.com/tcjj3/File_Manager_Docker" target="_blank" rel="noopener noreferrer">File_Manager_Docker ↗</a></div>
+                      <div><div class="repo-desc">Independent shared data / presentation service: mounts both GK-2A <code>xrit-rx</code> and Himawari <code>himawari-rx</code> named volumes into Caddy + Filebrowser without running either RF receiver.</div><div class="repo-coupling">This is the early modularization step: one browser / management plane spanning two receiving stacks, with receiver and Web lifecycles no longer bound together.</div></div>
+                      <span class="repo-role">DIRECT · WEB FILES</span>
+                    </div>
+                    <div class="repo-item">
+                      <div class="repo-name"><a href="https://github.com/tcjj3/File_Server_Docker" target="_blank" rel="noopener noreferrer">File_Server_Docker ↗</a></div>
+                      <div><div class="repo-desc">A separate file-protocol service, consuming the GK-2A / Himawari named volumes via Samba and FTP; configurable FTP passive ports and host/bridge networking.</div><div class="repo-coupling">Further separation of responsibilities: shared files are no longer coupled to either the receiver process or the browser-oriented File Manager.</div></div>
+                      <span class="repo-role">DIRECT · FILE SERVICE</span>
+                    </div>
+                    <div class="repo-item">
+                      <div class="repo-name"><a href="https://github.com/tcjj3/caddy-browse-template-modified" target="_blank" rel="noopener noreferrer">caddy-browse-template-modified ↗</a></div>
+                      <div>
+                        <div class="repo-desc">Template-development / prototype repository for the web presentation layer: customized Caddy browse templates with light/dark variants, authentication-aware pages, media preview, custom 401/404 pages and the evolving LatestImage viewer.</div>
+                        <div class="repo-coupling">Created on 2021-08-23 about six hours before <strong>GK-2A_Website_Docker</strong>. The relationship is directly visible in repository history: several base templates are byte-identical in both repositories, while the website repository carries parameterized <code>.original.tpl</code> derivatives that are copied and rewritten at container startup. Multiple changes were also mirrored within seconds or minutes across both repos—for example the same 401/404 pages on 2021-08-27 and matching LatestImage changes on 2021-08-31 / 2021-09-01. This is therefore best treated as the template R&amp;D / source lineage of the website container, not an unrelated UI companion.</div>
+                      </div>
+                      <span class="repo-role">SOURCE · TEMPLATE R&amp;D</span>
+                    </div>
+                    <div class="repo-item">
+                      <div class="repo-name"><a href="https://github.com/tcjj3/GK-2A_Website_Docker" target="_blank" rel="noopener noreferrer">GK-2A_Website_Docker ↗</a></div>
+                      <div>
+                        <div class="repo-desc">Production integration of the presentation layer: packages the custom Caddy templates, generates runtime light/dark + auth/non-auth variants, substitutes title/header/footer placeholders, selects themes dynamically, serves custom 401/404 pages, proxies dashboard / filebrowser endpoints and generates latest-image views over the xrit-rx data volume.</div>
+                        <div class="repo-coupling">Created later on the same day as <strong>caddy-browse-template-modified</strong>. Its Dockerfile embeds the template family directly, and <code>entrypoint.sh</code> copies the stored <code>.original.tpl</code> files into runtime templates before applying environment-driven substitutions. In other words: the template repo is the design / experimentation lineage; this repo is the deployable, parameterized integration.</div>
+                      </div>
+                      <span class="repo-role">DIRECT · WEB INTEGRATION</span>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="repo-group">
+                  <div class="repo-group-head"><h5>Broader radio experiments</h5><span class="repo-group-note">Same RF engineering domain, separate receiving path</span></div>
+                  <div class="repo-list">
+                    <div class="repo-item">
+                      <div class="repo-name"><a href="https://github.com/tcjj3/APRS-iGate_Docker" target="_blank" rel="noopener noreferrer">APRS-iGate_Docker ↗</a></div>
+                      <div><div class="repo-desc">Parameterised RTL-SDR / PyMultimonAPRS iGate container: callsign/passcode generation, APRS-IS gateway, frequency / PPM / gain / device selection, position and beacon metadata.</div><div class="repo-coupling">Created 2021.06. Strong evidence of broader SDR/radio engineering, but not a component of the weather-satellite decoder.</div></div>
+                      <span class="repo-role">RADIO · SIDECAR</span>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="repo-group">
+                  <div class="repo-group-head"><h5>Offline timing & resilience</h5><span class="repo-group-note">Infrastructure for zero-Internet operation and time-sensitive radio workflows</span></div>
+                  <div class="repo-list">
+                    <div class="repo-item">
+                      <div class="repo-name"><a href="https://github.com/tcjj3/GPS-Server_Docker" target="_blank" rel="noopener noreferrer">GPS-Server_Docker ↗</a></div>
+                      <div>
+                        <div class="repo-desc">Containerized GPS timing service: GPS receiver → gpsd → local NTP server, exposing GPSD on 2947/TCP and NTP on 123/UDP. The image explicitly removes Internet NTP pools and configures the local GPS/NMEA reference clock instead.</div>
+                        <div class="repo-coupling">Created 2021.08. This was not merely a generic timing side project: it supported the broader offline-first radio architecture and a planned autonomous polar-orbit receiving branch. Accurate local UTC was needed for NOAA APT / METEOR pass prediction, scheduled capture, antenna pointing / tracking and Doppler / frequency-compensation workflows even when Internet access was unavailable. Hardware preparation for that branch included a stepper-motor pan/tilt mechanism, controller MCU / programmer, and later a commercial antenna rotator; the automatic tracking system itself was not completed or field-tested before relocation. Functional coupling is system-level rather than a direct code import from the GEO decoder stack.</div>
+                      </div>
+                      <span class="repo-role">RESILIENCE · LOCAL TIME</span>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="repo-group">
+                  <div class="repo-group-head"><h5>Monitoring & unattended operation</h5><span class="repo-group-note">Operational tool · public source with documented 2023 field history</span></div>
+                  <div class="repo-list">
+                    <div class="repo-item">
+                      <div class="repo-name"><a href="https://github.com/tcjj3/goesrecv-lock-monitor" target="_blank" rel="noopener noreferrer">goesrecv-lock-monitor ↗</a></div>
+                      <div>
+                        <div class="repo-desc">Headless reception-health / signal-lock service built around goesrecv decoder telemetry: tracks degradation and recovery, maintains event history, exposes a JSON HTTP API, and can send e-mail alerts for unattended satellite reception.</div>
+                        <div class="repo-coupling">Originally developed and operationally used in 2023.05–06 for the rooftop GK-2A receiver, where wind or accidental contact could shift the antenna and cause long unnoticed gaps in weather imagery. Controlled antenna-offset tests showed that large Viterbi disagreement could still coexist with normal reception while Reed-Solomon corrections remained zero; once <code>reed_solomon_errors</code> became non-zero, reception was usually already near the FEC cliff. The historical monitor therefore used a stricter <code>RS == 0</code> operational-health threshold rather than merely mirroring goesrecv's <code>ok</code> flag. The 2026 public hardening retained that criterion while adding dwell-time / hysteresis, alert cooldown, safer credential handling, exact nanomsg framing and a systemd service example.</div>
+                      </div>
+                      <span class="repo-role">PUBLIC · OPERATIONAL MONITORING</span>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="repo-group">
+                  <div class="repo-group-head"><h5>Remote access & public-service exposure</h5><span class="repo-group-note">Operationally coupled to the receiver deployment</span></div>
+                  <div class="repo-list">
+                    <div class="repo-item">
+                      <div class="repo-name"><a href="https://github.com/tcjj3/ngrok_Docker" target="_blank" rel="noopener noreferrer">ngrok_Docker ↗</a></div>
+                      <div><div class="repo-desc">Containerized HTTP/TCP tunnelling layer with region, subdomain / remote-address and local-host configuration plus the ngrok inspection UI.</div><div class="repo-coupling">Created 2021.06. Used to expose services running on the LAN receiver host to external users when the residential connection did not provide a practically usable public-facing web endpoint. Its coupling is deployment/topology-level rather than a source-code import from the satellite decoder.</div></div>
+                      <span class="repo-role">DIRECT · PUBLIC ACCESS</span>
+                    </div>
+                    <div class="repo-item">
+                      <div class="repo-name"><a href="https://github.com/tcjj3/frp_Docker" target="_blank" rel="noopener noreferrer">frp_Docker ↗</a></div>
+                      <div><div class="repo-desc">Environment-driven FRP client covering HTTP/HTTPS, HTTPS→HTTP, TCP, UDP and Unix-domain-socket forwarding with generated runtime configuration.</div><div class="repo-coupling">Created 2021.06. Served the same practical role as an alternative self-hosted tunnelling path: publish receiver-side web / file / service ports from a NATed residential network to remote users.</div></div>
+                      <span class="repo-role">DIRECT · PUBLIC ACCESS</span>
+                    </div>
+                  </div>
+                </section>
+
+                <section class="repo-group">
+                  <div class="repo-group-head"><h5>Experimental network-attached SDR branch</h5><span class="repo-group-note">Alternative hardware topology; later abandoned after real-world testing</span></div>
+                  <div class="repo-list">
+                    <div class="repo-item">
+                      <div class="repo-name"><a href="https://github.com/tcjj3/virtualhere-client_Docker" target="_blank" rel="noopener noreferrer">virtualhere-client_Docker ↗</a></div>
+                      <div><div class="repo-desc">Packages the VirtualHere client so a USB device physically attached elsewhere on the network can appear inside the server-side container. In the SDR experiment, the receiver dongle was attached to a router / edge host and forwarded over the network to the main receiving server.</div><div class="repo-coupling">Created 2021.06. This was a genuine alternative SDR-access architecture rather than generic infrastructure: <strong>SDR → router / VirtualHere server → network → receiving host / container</strong>. It was later abandoned because raw SDR-style USB transport required high network bandwidth and suffered unacceptable packet loss in satellite reception workloads.</div></div>
+                      <span class="repo-role">EXPERIMENT · SDR TRANSPORT</span>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </details>
+          </div>
+        </details>
+      </article>
+
+      
+
+      <article class="card" data-category="sdr software security network">
+        <details>
+          <summary>
+            <div class="summary">
+              <span class="kicker">RF ANALYSIS · SOFTWARE · REVERSE ENGINEERING</span>
+              <h3>Signal investigation &amp; custom decoder engineering</h3>
+              <p>From spectrum investigation and long-running cross-sample analysis to an inferred data model, Java decoders, order-independent UDP processing, structured output and a working dashboard.</p>
+            </div><span class="plus">+</span>
+          </summary>
+          <div class="body">
+            <div class="twocol">
+              <div>
+                <h4>Signal discovery &amp; data modelling</h4>
+                <ul>
+                  <li>Surveyed RF spectrum activity and compared signal characteristics to identify signal types and guide data collection.</li>
+                  <li>Captured raw streams as TSDuck dump files, then manually examined long-running observations: recurring patterns, changing fields and relationships across samples.</li>
+                  <li>Inferred framing and data-organization rules by building hypotheses from incomplete observations, correlating samples and repeatedly testing and refining the model.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Implementation &amp; validation</h4>
+                <ul>
+                  <li>Implemented Java decoders from the inferred model, achieving stable parsing, information reassembly and structured output.</li>
+                  <li>Designed application-layer buffering and reassembly for out-of-order UDP datagrams, and validated the UDP-based receiving and decoding workflow.</li>
+                  <li>Built a decoder dashboard to inspect processing status, decoder activity and decoded results.</li>
+                </ul>
+              </div>
+            </div>
+            <p class="lead" style="margin-top:18px">Entered an unfamiliar technical domain, derived a testable model from incomplete and changing observations, then turned that model into a stable, working decoder and monitoring workflow.</p>
+          </div>
+        </details>
+      </article>
+
+      <article class="card" data-category="security software">
+        <details>
+          <summary>
+            <div class="summary">
+              <span class="kicker">REVERSE ENGINEERING</span>
+              <h3>Proprietary media encryption analysis and content recovery</h3>
+              <p>Analyzed a proprietary encrypted-media format using predictable MP4 structure, constrained parameter ranges and iterative verification.</p>
+            </div><span class="plus">+</span>
+          </summary>
+          <div class="body">
+            <div class="twocol">
+              <div>
+                <h4>Approach</h4>
+                <ul>
+                  <li>Used known plaintext structure in MP4 files as an anchor.</li>
+                  <li>Constrained unknown parameters through plausible ranges and data relationships.</li>
+                  <li>Iteratively validated recovered structure against expected output.</li>
+                  <li>Recovered the encrypted video content without the original password.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>What it demonstrates</h4>
+                <p>Constraint-based reasoning and file-format knowledge applied to reverse engineering when both implementation details and key information are incomplete.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <article class="card" data-category="software security">
+        <details>
+          <summary>
+            <div class="summary">
+              <span class="kicker">SOFTWARE · REVERSE ENGINEERING</span>
+              <h3>Distributed smart-home control and automation system</h3>
+              <p>Custom multi-component system combining a VB frontend, Java control backend, Android TTS service, sensors and local-device protocol integration.</p>
+            </div><span class="plus">+</span>
+          </summary>
+          <div class="body">
+            <div class="twocol">
+              <div>
+                <h4>Selected components</h4>
+                <ul>
+                  <li>Reverse engineered local device-control protocols.</li>
+                  <li>Integrated TTL / RS232 / RS485 buses and multiple sensors.</li>
+                  <li>Designed long-running automation around real household scenarios.</li>
+                  <li>Connected Android TTS capabilities through JNI / native-library analysis.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Why it matters</h4>
+                <p>This project predates my formal security career and shows that software development, protocol analysis and systems integration were already part of the same working pattern.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </article>
+
+      <article class="card" data-category="research ai">
+        <details>
+          <summary>
+            <div class="summary">
+              <span class="kicker">APPLIED ML · RESEARCH</span>
+              <h3>OSA screening from overnight snore / breathing audio</h3>
+              <p>Master’s research project building a reproducible pipeline from PSG-related audio to acoustic features, weak-label alignment, Random Forest prediction and event aggregation.</p>
+            </div><span class="plus">+</span>
+          </summary>
+          <div class="body">
+            <div class="twocol">
+              <div>
+                <h4>Research workflow</h4>
+                <ul>
+                  <li>Processed about 145 PSG-related cases.</li>
+                  <li>Built audio segmentation, feature extraction, event alignment, candidate filtering and manual-correction records.</li>
+                  <li>Trained a Random Forest on multidimensional acoustic features.</li>
+                  <li>Designed acoustic-island / episode aggregation and compared outputs with PSG-AHI and event distributions.</li>
+                </ul>
+              </div>
+              <div>
+                <h4>Output</h4>
+                <p>First-author conference paper: <em>A Sleep Audio Preprocessor for OSA acoustic analysis</em> (ICICSP 2026), with the broader project used as a reproducible applied-research pipeline.</p>
+              </div>
+            </div>
+          </div>
+        </details>
+      </article>
+    </div>
+  </section>
+
+
+  <section id="archive" class="shell section">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Complete project archive</div>
+        <h2>Everything public, without forcing everything into the first read</h2>
+      </div>
+      <p>
+        The featured section above is selective. This archive keeps the full public technical history available
+        for readers who want breadth, chronology or smaller supporting projects.
+      </p>
+    </div>
+
+    <details class="archive-box">
+      <summary>
+        <div>
+          <h3>View complete archive — 15 public projects</h3>
+          <p>Major systems, smaller prototypes, research work and early engineering projects. Patent-related work is intentionally excluded.</p>
+        </div>
+        <span class="plus">+</span>
+      </summary>
+      <div class="archive-body">
+        <div class="archive-note">
+          <p>“Featured above” means the project has a deeper card in Selected Work. The archive itself is the complete public index.</p>
+        </div>
+
+        <div class="archive-list">
+          <article class="archive-item">
+            <div class="year">2026 — present</div>
+            <div>
+              <h4>Technical Workbench — multi-model AI engineering platform</h4>
+              <p>Self-hosted workspace unifying projects, tasks, conversations, models, tools, files, persistent state, recoverable execution and auditable history across cloud and local model providers.</p>
+              <div class="featured-mark">FEATURED ABOVE</div>
+            </div>
+            <div class="mini-tags"><span>AI / LLM</span><span>Software</span><span>Systems</span></div>
+          </article>
+
+          <article class="archive-item">
+            <div class="year">2026</div>
+            <div>
+              <h4>JP-DTT WebBridge — live multilingual subtitle & GPU inference bridge</h4>
+              <p>Browser-to-GPU pipeline for Japanese TV HLS audio, VAD, real-time ASR, language checking, local-LLM translation and bilingual subtitle delivery across a VM / host boundary.</p>
+              <div class="featured-mark">FEATURED ABOVE</div>
+            </div>
+            <div class="mini-tags"><span>Software</span><span>AI / Speech</span><span>GPU</span></div>
+          </article>
+
+          <article class="archive-item">
+            <div class="year">2025 — 2026</div>
+            <div>
+              <h4>OSA screening from overnight snore / breathing audio</h4>
+              <p>Master's research pipeline covering audio segmentation, feature extraction, event alignment, Random Forest modelling, acoustic-island / episode aggregation and reproducible evaluation on about 145 PSG-related cases.</p>
+              <div class="featured-mark">FEATURED ABOVE</div>
+            </div>
+            <div class="mini-tags"><span>Research</span><span>ML</span><span>Audio</span></div>
+          </article>
+
+          <article class="archive-item">
+            <div class="year">2020.09 — 2021.09 · later extensions</div>
+            <div>
+              <h4>GK-2A / Himawari-8 weather-satellite reception engineering</h4>
+              <p>Progressed from remotely debugging a Windows receiving setup and scripting HimawariCast automation to rebuilding a Linux mini-server and modularizing GK-2A / Himawari receiving, cross-container file access, Web presentation, remote exposure and operations. External operators publicly reported using the automation.</p>
+              <div class="featured-mark">FEATURED ABOVE</div>
+            </div>
+            <div class="mini-tags"><span>SDR</span><span>Satellite</span><span>Docker</span></div>
+          </article>
+
+          
+
+          <article class="archive-item">
+            <div class="year">Independent engineering</div>
+            <div>
+              <h4>Signal investigation &amp; custom decoder engineering</h4>
+              <p>Spectrum and signal-type analysis; TSDuck dump capture; long-running, cross-sample structure inference and iterative validation; Java decoding, out-of-order UDP reassembly, stable structured output and an operational dashboard.</p>
+              <div class="featured-mark">FEATURED ABOVE</div>
+            </div>
+            <div class="mini-tags"><span>RF analysis</span><span>Java</span><span>Protocol RE</span><span>Dashboard</span></div>
+          </article>
+
+          <article class="archive-item">
+            <div class="year">2018.05 — 2019.07</div>
+            <div>
+              <h4>Distributed smart-home control & scene-automation system</h4>
+              <p>VB frontend, Java control backend, Android TTS service, sensors, local-protocol reverse engineering, TTL / RS232 / RS485 integration and long-running household automation.</p>
+              <div class="featured-mark">FEATURED ABOVE</div>
+            </div>
+            <div class="mini-tags"><span>Software</span><span>Systems</span><span>RE</span></div>
+          </article>
+
+          <article class="archive-item">
+            <div class="year">During formal employment</div>
+            <div>
+              <h4>Internal network traffic sensitive-data & prohibited-connection detector</h4>
+              <p>C / C++ tool for HTTP / DNS recognition over mirrored enterprise traffic, identifying likely plaintext-password interactions and explicitly prohibited domain connections with structured audit output.</p>
+              <div class="featured-mark">FEATURED ABOVE</div>
+            </div>
+            <div class="mini-tags"><span>C / C++</span><span>Network</span><span>Security</span></div>
+          </article>
+
+          <article class="archive-item">
+            <div class="year">2021.06</div>
+            <div>
+              <h4>NFQUEUE-based transparent HTTP mirror-redirection rewriter</h4>
+              <p>Gateway-side Python / NetfilterQueue / Scapy tool that intercepts HTTP response traffic and rewrites mirror-domain references in redirect-related response headers using an external source→replacement mapping list. It preserves payload length by padding or truncating rewritten data, recalculates transport checksums, and manages its own iptables NFQUEUE rule for transparent deployment across downstream clients.</p>
+            </div>
+            <div class="mini-tags"><span>Python</span><span>NetfilterQueue</span><span>Scapy</span><span>iptables</span><span>HTTP</span></div>
+          </article>
+
+          <article class="archive-item">
+            <div class="year">2020.08</div>
+            <div>
+              <h4>ARM-architecture SDR firmware algorithm analysis</h4>
+              <p>Static firmware analysis and logic inference used to locate the key path of a registration algorithm despite incomplete hardware access and no full dynamic-debugging environment.</p>
+            </div>
+            <div class="mini-tags"><span>ARM</span><span>Firmware</span><span>RE</span></div>
+          </article>
+
+          <article class="archive-item">
+            <div class="year">2019.06</div>
+            <div>
+              <h4>Android TTS JNI / so call-chain analysis</h4>
+              <p>Reverse engineered Android TTS JNI / native libraries, mapped key interfaces and call chains, validated invocation and used the result to integrate voice output into the smart-home system.</p>
+            </div>
+            <div class="mini-tags"><span>Android</span><span>JNI / so</span><span>RE</span></div>
+          </article>
+
+          <article class="archive-item">
+            <div class="year">After bachelor’s graduation</div>
+            <div>
+              <h4>Proprietary media encryption analysis & content recovery</h4>
+              <p>Used predictable MP4 structure, constrained parameter ranges and iterative verification to infer weaknesses in a proprietary media-encryption mechanism and recover encrypted video without the original password.</p>
+              <div class="featured-mark">FEATURED ABOVE</div>
+            </div>
+            <div class="mini-tags"><span>Crypto analysis</span><span>File formats</span><span>RE</span></div>
+          </article>
+
+          <article class="archive-item">
+            <div class="year">2020.09</div>
+            <div>
+              <h4>Polar-orbit satellite frequency compensation using Orbitron data</h4>
+              <p>VB prototype (Orbitron_Track) using Orbitron satellite-state data to calculate Doppler shift and display uplink / downlink frequency offsets, with room for later antenna and radio-parameter coupling.</p>
+            </div>
+            <div class="mini-tags"><span>Satellite</span><span>Doppler</span><span>VB</span></div>
+          </article>
+
+          <article class="archive-item">
+            <div class="year">2024.12 — 2025.01</div>
+            <div>
+              <h4>Experimental extension of the NOAA APT encoder chain</h4>
+              <p>The core implementation was a set of modified <code>apt-encoder*</code> variants derived from <a href="https://github.com/gkbrk/apt-encoder" target="_blank" rel="noopener noreferrer">gkbrk/apt-encoder ↗</a> (AGPL-3.0-or-later). The separate image-conversion / resize utilities were supporting preprocessing tools rather than the core encoder logic. The experiment extended the encoder to test custom image and general-file-to-APT-audio workflows; the linked video records an early test build, while later revisions substantially improved the reconstructed image quality. The modified source has not been publicly released.</p>
+              <a class="evidence-link" href="https://www.youtube.com/watch?v=4oQvVz56cp4" target="_blank" rel="noopener noreferrer">Early test-stage video ↗</a>
+            </div>
+            <div class="mini-tags"><span>NOAA APT</span><span>Modified upstream encoder</span><span>Early public test</span></div>
+          </article>
+
+          <article class="archive-item">
+            <div class="year">2016 — 2017</div>
+            <div>
+              <h4>Android online examination system</h4>
+              <p>Built question-bank, user, score, exam-session and opening-time controls; Android handled login / answering, while a Servlet-generated web admin interface and JSON backend handled management and business logic.</p>
+            </div>
+            <div class="mini-tags"><span>Android</span><span>Java</span><span>Web</span></div>
+          </article>
+
+          <article class="archive-item">
+            <div class="year">2025 coursework</div>
+            <div>
+              <h4>Random Forest stock-price movement experiment</h4>
+              <p>Course-level group experiment covering historical market-data processing, feature construction, Random Forest training and result analysis.</p>
+            </div>
+            <div class="mini-tags"><span>ML</span><span>Random Forest</span><span>Coursework</span></div>
+          </article>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <section id="career" class="shell section">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Career</div>
+        <h2>Formal roles are only one layer of the technical history</h2>
+      </div>
+      <p>
+        The formal career is security-heavy. Independent software, systems and protocol work began earlier and recurred on a project basis before and alongside formal employment.
+      </p>
+    </div>
+
+    <div class="career">
+      <div class="job">
+        <div class="date">2023.09 — 2025.08</div>
+        <div><h3>Penetration Testing Engineer</h3><p>Authorized web security testing, vulnerability reproduction, impact analysis, remediation and attack-surface review.</p></div>
+      </div>
+      <div class="job">
+        <div class="date">2022.10 — 2023.09</div>
+        <div><h3>Senior Reverse Engineer</h3><p>Reverse engineering and security analysis for abnormal activity, malware / infection investigation, internal-network security testing and incident-oriented technical support.</p></div>
+      </div>
+      <div class="job">
+        <div class="date">2022.02 — 2022.09</div>
+        <div><h3>Security Analyst</h3><p>Malware, worm and infected-sample logic analysis; static reverse engineering; reconstruction of infection mechanisms and response guidance.</p></div>
+      </div>
+      <div class="job">
+        <div class="date">Since adolescence · project-based / intermittent</div>
+        <div><h3>Independent software, reverse-engineering and technical projects</h3><p>Intermittent, project-based software customization, reverse engineering, system integration, low-level interfaces and non-standard technical problem solving from adolescence, through university, and after bachelor’s graduation.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="shell section">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Best-fit environment</div>
+        <h2>Where this profile is most useful</h2>
+      </div>
+      <p>
+        The portfolio is intentionally not optimized for jobs that require only one narrow stack for ten years.
+      </p>
+    </div>
+    <div class="bestfit">
+      <div>
+        <h3>Strong fit</h3>
+        <p>Cross-domain engineering, applied R&D, AI systems, technical prototyping, complex integration, unusual system investigation, security / reverse-engineering adjacent roles, and teams where the problem is not fully specified in advance.</p>
+      </div>
+      <div>
+        <h3>What I bring</h3>
+        <p>Technical breadth with working depth, fast transfer into unfamiliar domains, comfort with incomplete documentation, and the ability to turn analysis into software, systems, tools or research outputs.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="shell section contact">
+    <div>
+      <div class="eyebrow">Contact</div>
+      <h2>Interested in one of the threads?</h2>
+      <p>
+        The public page stays intentionally selective. Detailed technical material can live in repositories,
+        papers, project pages or private discussion where disclosure is appropriate.
+      </p>
+    </div>
+    <div class="actions">
+      <a class="btn primary" href="https://www.linkedin.com/in/tcjj3/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="btn" href="https://github.com/tcjj3" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a class="btn" href="mailto:tcjj3@live.cn">Email</a>
+    </div>
+  </section>
+</main>
+
+<footer class="shell footer">
+  <span>© 2026 Chaojun Tan</span>
+  <span>Cybersecurity · Software · Systems · SDR · AI</span>
+</footer>
+
+<script>
+const detailNodes = () => [...document.querySelectorAll("details")];
+const expandBtns = [document.getElementById("expandTop"),document.getElementById("expandHero")].filter(Boolean);
+let expanded = false;
+
+function refreshExpandLabels(){
+  expandBtns.forEach(btn=>{
+    btn.textContent = expanded ? "Collapse all" : (btn.id==="expandHero" ? "Open everything" : "Expand all");
+  });
+}
+function setExpanded(next){
+  expanded = next;
+  detailNodes().forEach(d=>{
+    const card=d.closest(".card");
+    if(!card?.classList.contains("hidden")) d.open=next;
+  });
+  refreshExpandLabels();
+}
+expandBtns.forEach(btn=>btn.addEventListener("click",()=>setExpanded(!expanded)));
+
+const chips=[...document.querySelectorAll("[data-filter]")];
+const cards=[...document.querySelectorAll("#work .card")];
+chips.forEach(btn=>btn.addEventListener("click",()=>{
+  const f=btn.dataset.filter;
+  chips.forEach(b=>b.classList.toggle("active",b===btn));
+  cards.forEach(card=>{
+    const cats=(card.dataset.category||"").split(/\s+/);
+    const show=f==="all"||cats.includes(f);
+    card.classList.toggle("hidden",!show);
+    if(!show) card.querySelector("details").open=false;
+    if(show&&expanded) card.querySelector("details").open=true;
+  });
+}));
+
+detailNodes().forEach(d=>d.addEventListener("toggle",()=>{
+  const visible=detailNodes().filter(x=>!x.closest(".card")?.classList.contains("hidden"));
+  expanded=visible.length>0&&visible.every(x=>x.open);
+  refreshExpandLabels();
+}));
+</script>
+</body>
+</html>
