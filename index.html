@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 
 
 
@@ -7,8 +7,14 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>Chaojun Tan — Engineering, Music Technology &amp; Creative Practice</title>
-<meta content="Interdisciplinary engineering portfolio: AI / LLM systems, software and SDR / satellite technology, original piano composition, programmatic MIDI engineering, Black MIDI and visual creative direction." name="description"/>
+<title>Tan Chaojun — Independent Research, Engineering &amp; Creative Practice</title>
+<meta content="Independent research and cross-disciplinary works by Tan Chaojun, spanning AI / LLM systems, software engineering, cybersecurity, SDR / satellite technology, music composition, MIDI engineering and visual creative practice." name="description"/>
+<!-- Domain deliberately undecided. Avoid canonical, og:url and domain-relative assets until hosting is finalized. -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="Tan Chaojun — Independent Research, Engineering &amp; Creative Practice"/>
+<meta property="og:description" content="Independent research, engineering systems, SDR / satellite technology, AI / LLM work, music and creative practice by Tan Chaojun."/>
+<meta name="twitter:card" content="summary"/>
+<meta name="theme-color" content="#0b0e12"/>
 <style>
   :root{
     --bg:#0b0e12;--panel:#11161c;--panel2:#151b22;--line:#27313a;
@@ -140,39 +146,67 @@
 
   @media(max-width:980px){.nav{display:none}.hero{grid-template-columns:1fr}.section-head{grid-template-columns:1fr;gap:14px}.domain-grid{grid-template-columns:1fr 1fr}.principle{grid-template-columns:1fr 1fr}.twocol{grid-template-columns:1fr}.bestfit{grid-template-columns:1fr}.job{grid-template-columns:1fr}.archive-item{grid-template-columns:110px 1fr}.mini-tags{grid-column:2;justify-content:flex-start}.rf-event{grid-template-columns:105px 1fr}.rf-event a{grid-column:2}.repo-item{grid-template-columns:180px 1fr}.repo-role{grid-column:2;justify-self:start}.contact{grid-template-columns:1fr}}
   @media(max-width:640px){.evo-stages{grid-template-columns:1fr}.evolution{padding:15px}.evo-flow pre{display:none}.evo-mobileflow{display:grid;gap:7px;font-size:.78rem;color:#d0e0e5}.evo-mobileflow div{border-radius:8px;padding:9px;background:rgba(255,255,255,.035);text-align:center}.evo-mobileflow .arrow{color:var(--accent2);background:transparent;padding:3px;font-size:.7rem}.evo-mobileflow span{color:var(--accent)}.shell{width:min(100% - 24px,1180px)}.topbar{padding-inline:12px;grid-template-columns:auto 1fr}.topbar .actions .btn:first-child{display:none}.topbar .actions{justify-content:flex-end}.domain-grid,.principle{grid-template-columns:1fr}.archive-item{grid-template-columns:1fr}.mini-tags{grid-column:1}.rf-event{grid-template-columns:1fr}.rf-event a{grid-column:1}.repo-item{grid-template-columns:1fr}.repo-role{grid-column:1}.repo-group-head{align-items:flex-start;flex-direction:column;gap:4px}.hero{padding-top:58px}h1{font-size:3.55rem}.footer{flex-direction:column;align-items:flex-start;justify-content:center;gap:8px}}
+
+  /* v37: a portable identity layer, quicker outbound navigation and readable back-to-top control */
+  html{scroll-padding-top:88px}
+  .hero-statement{display:block;margin-bottom:11px;color:var(--text);font-size:clamp(1.4rem,2.6vw,1.95rem);font-weight:780;letter-spacing:-.035em;line-height:1.16}
+  .hero .subtitle{font-size:clamp(1.05rem,1.65vw,1.23rem);color:#c9d5df;line-height:1.55}
+  .topbar{gap:18px;grid-template-columns:auto minmax(0,1fr) auto}
+  .nav{gap:clamp(9px,1.25vw,18px);white-space:nowrap;font-size:.86rem;align-items:center}
+  .header-actions,.quick-links{display:flex;align-items:center}
+  .header-actions{gap:12px}
+  .quick-links{gap:5px}
+  .icon-link{display:grid;place-items:center;width:38px;height:38px;border:1px solid transparent;border-radius:50%;color:var(--muted);transition:color .18s ease,border-color .18s ease,background .18s ease;flex:none}
+  .icon-link svg{display:block;width:18px;height:18px;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;fill:none}
+  .icon-link:hover{color:var(--accent);background:rgba(151,255,208,.06);border-color:var(--line)}
+  .icon-link:focus-visible,.btn:focus-visible,.back-to-top:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  .header-contact{white-space:nowrap}
+  .work-tools{display:flex;justify-content:flex-end;margin:-8px 0 14px}
+  .work-tools .btn{font-size:.82rem;padding:8px 13px}
+  .back-to-top{position:fixed;z-index:55;right:max(20px,calc((100vw - 1180px)/2));bottom:24px;display:flex;gap:8px;align-items:center;justify-content:center;min-width:52px;height:48px;padding:0 15px;border:1px solid #415463;border-radius:999px;background:rgba(21,27,34,.96);box-shadow:0 12px 35px rgba(0,0,0,.35);color:var(--text);cursor:pointer;font-size:.83rem;font-weight:650;backdrop-filter:blur(10px);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(12px);transition:opacity .2s ease,transform .2s ease,visibility .2s ease}
+  .back-to-top svg{width:17px;height:17px;stroke:var(--accent);stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+  .back-to-top:hover{border-color:var(--accent);background:#1d2930}
+  .back-to-top.is-visible{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
+  @media(max-width:980px){.topbar{grid-template-columns:auto 1fr}.header-actions{justify-self:end}}
+  @media(max-width:640px){.topbar{gap:8px}.header-actions{gap:5px}.quick-links{gap:0}.icon-link{width:32px;height:36px}.icon-link svg{width:17px;height:17px}.header-contact{padding:8px 10px;font-size:.84rem}.back-to-top{right:14px;bottom:16px;min-width:46px;height:44px;padding:0 12px}.back-to-top .back-label{display:none}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.back-to-top,.icon-link{transition:none}}
   </style>
 </head>
 <body>
 <header class="topbar">
-<a class="brand" href="#top">CT<i>.</i></a>
-<nav class="nav">
+<a class="brand" href="#top" aria-label="Tan Chaojun — back to top">TC<i>.</i></a>
+<nav class="nav" aria-label="Portfolio sections">
 <a href="#profile">Profile</a>
 <a href="#domains">Capabilities</a>
 <a href="#work">Selected Work</a>
 <a href="#creative">Creative Practice</a>
 <a href="#archive">Archive</a>
 <a href="#career">Career</a>
-<a href="#contact">Contact</a>
 </nav>
-<div class="actions">
-<button class="btn" id="expandTop" type="button">Expand all</button>
-<a class="btn primary" href="#contact">Contact</a>
+<div class="header-actions">
+<div class="quick-links" role="group" aria-label="Direct profile and email links">
+<a class="icon-link" href="https://www.linkedin.com/in/tcjj3/" rel="noopener noreferrer" target="_blank" aria-label="LinkedIn (opens in a new tab)" title="LinkedIn">
+<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7h.01M12 17v-7M12 13a3 3 0 0 1 6 0v4"/></svg></a>
+<a class="icon-link" href="https://github.com/tcjj3" rel="noopener noreferrer" target="_blank" aria-label="GitHub (opens in a new tab)" title="GitHub">
+<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 6v-3.3a3.1 3.1 0 0 0-.8-2.4c2.7-.3 5.5-1.3 5.5-6A4.7 4.7 0 0 0 18.4 7a4.3 4.3 0 0 0-.1-3.2S17.3 3.5 15 5a11 11 0 0 0-6 0C6.7 3.5 5.7 3.8 5.7 3.8A4.3 4.3 0 0 0 5.6 7a4.7 4.7 0 0 0-1.3 3.3c0 4.7 2.8 5.7 5.5 6A3.1 3.1 0 0 0 9 18.7V22"/></svg></a>
+<a class="icon-link" href="mailto:tcjj3@live.cn" aria-label="Email Tan Chaojun" title="Email">
+<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+</div>
+<a class="btn primary header-contact" href="#contact">Contact</a>
 </div>
 </header>
 <main id="top">
 <section class="shell hero">
 <div>
-<div class="eyebrow">Engineering × research × creative practice</div>
-<h1>Chaojun Tan</h1>
+<div class="eyebrow">Independent research × engineering × creative practice</div>
+<h1>Tan Chaojun</h1>
 <p class="subtitle">
-        Cross-domain engineer working across cybersecurity, reverse engineering,
-        software engineering, network &amp; systems, SDR / satellite technology, and AI / LLM systems. I also compose original music and develop visual concepts and styles.
-      </p>
+<strong class="hero-statement">I don't fit into a single discipline.</strong>
+Independent research and hands-on work across AI / LLM systems, cybersecurity, reverse engineering, software engineering, network &amp; systems, and SDR / satellite technology—alongside original music, MIDI engineering and visual creative practice.
+</p>
 <p class="positioning">
-        My strength is not narrow specialization in one stack. I move across technical domains,
-        build a working model of unfamiliar systems, and turn that understanding into practical,
-        testable solutions. My creative work adds composition, visual judgment and cross-media expression to that practice.
-      </p>
+My work spans engineering, applied research and creative practice. I investigate unfamiliar systems, develop testable models and turn them into working solutions. The same attention to structure, experimentation and expression connects my technical and creative work.
+</p>
 <div class="tagrow">
 <span class="tag">Cybersecurity</span>
 <span class="tag">Reverse Engineering</span>
@@ -185,8 +219,8 @@
 <span class="tag">Visual Style</span>
 </div>
 <div class="actions">
-<a class="btn primary" href="#domains">See capability map</a>
-<button class="btn" id="expandHero" type="button">Open everything</button>
+<a class="btn primary" href="#work">Explore selected work</a>
+<a class="btn" href="#career">Career &amp; experience</a>
 </div>
 </div>
 <aside class="snapshot">
@@ -195,7 +229,7 @@
 <div><strong>Professional background</strong><span>3+ years of formal professional experience across cybersecurity, reverse engineering and security engineering.</span></div>
 <div><strong>Beyond job titles</strong><span>Long-term independent projects in software and systems, alongside original piano / music-box compositions and visual concept development.</span></div>
 <div><strong>Current direction</strong><span>AI / LLM systems engineering, applied research and self-hosted technical platforms.</span></div>
-<div><strong>Best fit</strong><span>Roles that value breadth, systems thinking, rapid domain transfer and unusual problem solving.</span></div>
+<div><strong>Where I contribute</strong><span>Roles that value breadth, systems thinking, rapid domain transfer and unusual problem solving.</span></div>
 </div>
 </aside>
 </section>
@@ -289,6 +323,7 @@
         Each featured project begins with a recruiter-readable summary. Technical details stay collapsed until the reader chooses to open them; the complete public project history is preserved in the archive below.
       </p>
 </div>
+<div class="work-tools"><button class="btn" id="expandTop" type="button" aria-controls="work" aria-label="Expand all visible portfolio details">Expand all details</button></div>
 <div class="filterbar">
 <button class="chip active" data-filter="all" type="button">All</button>
 <button class="chip" data-filter="ai" type="button">AI / LLM</button>
@@ -1194,16 +1229,20 @@ HimawariCast ───────► Himawari receiver container ─┘        
 <a class="btn primary" href="https://www.linkedin.com/in/tcjj3/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
 <a class="btn" href="https://github.com/tcjj3" rel="noopener noreferrer" target="_blank">GitHub</a>
 <a class="btn" href="mailto:tcjj3@live.cn">Email</a>
+<a class="btn" href="https://x.com/tcjj3" rel="noopener noreferrer" target="_blank">X · Research log ↗</a>
 </div>
 </section>
 </main>
 <footer class="shell footer">
-<span>© 2026 Chaojun Tan</span>
+<span>© 2026 Tan Chaojun</span>
 <span>Engineering · SDR · AI · Music / MIDI · Visual Style</span>
 </footer>
+<button class="back-to-top" id="backToTop" type="button" aria-label="Back to top" title="Back to top">
+<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 7-7 7 7M12 5v14"/></svg><span class="back-label">Back to top</span>
+</button>
 <script>
 const detailNodes = () => [...document.querySelectorAll("details")];
-const expandBtns = [document.getElementById("expandTop"),document.getElementById("expandHero")].filter(Boolean);
+const expandBtns = [document.getElementById("expandTop")].filter(Boolean);
 let expanded = false;
 
 
@@ -1211,7 +1250,8 @@ let expanded = false;
 
 function refreshExpandLabels(){
   expandBtns.forEach(btn=>{
-    btn.textContent = expanded ? "Collapse all" : (btn.id==="expandHero" ? "Open everything" : "Expand all");
+    btn.textContent = expanded ? "Collapse all details" : "Expand all details";
+    btn.setAttribute("aria-label", expanded ? "Collapse all visible portfolio details" : "Expand all visible portfolio details");
   });
 }
 function setExpanded(next){
@@ -1249,6 +1289,24 @@ detailNodes().forEach(d=>d.addEventListener("toggle",()=>{
   expanded=visible.length>0&&visible.every(x=>x.open);
   refreshExpandLabels();
 }));
+
+// Accessible return control: only appears when the reader has meaningfully scrolled.
+const backToTop = document.getElementById("backToTop");
+const footer = document.querySelector(".footer");
+const updateBackToTop = () => {
+  backToTop.classList.toggle("is-visible", window.scrollY > Math.max(560, window.innerHeight * .7));
+  // Keep the floating control out of the copyright and footer links.
+  const footerOverlap = Math.max(0, window.innerHeight - footer.getBoundingClientRect().top);
+  const baseOffset = window.innerWidth <= 640 ? 16 : 24;
+  backToTop.style.bottom = `${Math.max(baseOffset, footerOverlap + 12)}px`;
+};
+window.addEventListener("scroll", updateBackToTop, {passive: true});
+window.addEventListener("resize", updateBackToTop, {passive: true});
+backToTop.addEventListener("click", () => {
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  window.scrollTo({top: 0, behavior: reduceMotion ? "instant" : "smooth"});
+});
+updateBackToTop();
 </script>
 </body>
 </html>
