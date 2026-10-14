@@ -170,6 +170,17 @@
   @media(max-width:980px){.topbar{grid-template-columns:auto 1fr}.header-actions{justify-self:end}}
   @media(max-width:640px){.topbar{gap:8px}.header-actions{gap:5px}.quick-links{gap:0}.icon-link{width:32px;height:36px}.icon-link svg{width:17px;height:17px}.header-contact{padding:8px 10px;font-size:.84rem}.back-to-top{right:14px;bottom:16px;min-width:46px;height:44px;padding:0 12px}.back-to-top .back-label{display:none}}
   @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.back-to-top,.icon-link{transition:none}}
+
+  /* v38: canvas-rendered address with human-first actions */
+  button.icon-link{background:transparent;font:inherit;cursor:pointer}
+  .email-visual{grid-column:1/-1;display:flex;flex-direction:column;align-items:flex-start;gap:9px;width:min(100%,610px);margin-top:2px;padding:19px 22px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(120deg,rgba(151,255,208,.035),rgba(143,184,255,.03))}
+  .email-visual-label{font-size:.72rem;letter-spacing:.12em;font-weight:800;color:var(--accent)}
+  #emailCanvas{display:block;max-width:100%;width:100%;height:52px}
+  .email-buttons{display:flex;flex-wrap:wrap;gap:10px;margin-top:3px}
+  .email-buttons .btn{padding:9px 15px;font-size:.9rem}
+  .email-status{min-height:1.2em;color:var(--muted);font-size:.8rem}
+  .email-noscript{font-size:.85rem;color:var(--muted)}
+  @media(max-width:640px){.email-visual{padding:16px}}
   </style>
 </head>
 <body>
@@ -189,8 +200,8 @@
 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7h.01M12 17v-7M12 13a3 3 0 0 1 6 0v4"/></svg></a>
 <a class="icon-link" href="https://github.com/tcjj3" rel="noopener noreferrer" target="_blank" aria-label="GitHub (opens in a new tab)" title="GitHub">
 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 6v-3.3a3.1 3.1 0 0 0-.8-2.4c2.7-.3 5.5-1.3 5.5-6A4.7 4.7 0 0 0 18.4 7a4.3 4.3 0 0 0-.1-3.2S17.3 3.5 15 5a11 11 0 0 0-6 0C6.7 3.5 5.7 3.8 5.7 3.8A4.3 4.3 0 0 0 5.6 7a4.7 4.7 0 0 0-1.3 3.3c0 4.7 2.8 5.7 5.5 6A3.1 3.1 0 0 0 9 18.7V22"/></svg></a>
-<a class="icon-link" href="mailto:tcjj3@live.cn" aria-label="Email Tan Chaojun" title="Email">
-<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+<button class="icon-link email-send" type="button" aria-label="Email Tan Chaojun" title="Email">
+<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></button>
 </div>
 <a class="btn primary header-contact" href="#contact">Contact</a>
 </div>
@@ -1228,8 +1239,17 @@ HimawariCast ───────► Himawari receiver container ─┘        
 <div class="actions">
 <a class="btn primary" href="https://www.linkedin.com/in/tcjj3/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
 <a class="btn" href="https://github.com/tcjj3" rel="noopener noreferrer" target="_blank">GitHub</a>
-<a class="btn" href="mailto:tcjj3@live.cn">Email</a>
 <a class="btn" href="https://x.com/tcjj3" rel="noopener noreferrer" target="_blank">X · Research log ↗</a>
+</div>
+<div class="email-visual" aria-label="Email address shown visually. Use Copy email or Send email to contact me.">
+  <span class="email-visual-label">EMAIL · DIRECT CONTACT</span>
+  <canvas id="emailCanvas" role="img" aria-label="Email address rendered visually; use the buttons below to copy the address or start an email."></canvas>
+  <div class="email-buttons" aria-label="Email actions">
+    <button class="btn" type="button" id="copyEmail">Copy email</button>
+    <button class="btn" type="button" id="sendEmail">Send email</button>
+  </div>
+  <noscript><span class="email-noscript">JavaScript is required to display the address. LinkedIn remains available above.</span></noscript>
+  <span class="email-status" id="emailStatus" role="status" aria-live="polite"></span>
 </div>
 </section>
 </main>
@@ -1241,6 +1261,65 @@ HimawariCast ───────► Himawari receiver container ─┘        
 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m5 12 7-7 7 7M12 5v14"/></svg><span class="back-label">Back to top</span>
 </button>
 <script>
+
+// Encoded contact payload; intentionally not stored as a literal email/URL in markup.
+(() => {
+  const payload = [47,56,49,49,104,27,55,50,45,62,117,56,53];
+  const resolveContact = () => String.fromCharCode(...payload.map(n => n ^ 91));
+  const canvas = document.getElementById("emailCanvas");
+  const status = document.getElementById("emailStatus");
+  const copyButton = document.getElementById("copyEmail");
+  const sendButtons = [document.getElementById("sendEmail"), ...document.querySelectorAll(".email-send")];
+  function drawEmail() {
+    if (!canvas?.getContext) return;
+    const width = Math.max(180, Math.round(canvas.getBoundingClientRect().width));
+    const height = 52;
+    const ratio = Math.min(window.devicePixelRatio || 1, 3);
+    canvas.width = Math.round(width * ratio);
+    canvas.height = Math.round(height * ratio);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    ctx.scale(ratio, ratio);
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "#eef3f7";
+    ctx.font = '600 26px Inter,system-ui,-apple-system,"Segoe UI",sans-serif';
+    const addr = resolveContact();
+    const measured = ctx.measureText(addr).width;
+    if (measured > width) ctx.font = `600 ${Math.max(14, Math.floor(26 * width / measured))}px Inter,system-ui,sans-serif`;
+    ctx.fillText(addr, 1, height / 2);
+  }
+  function showStatus(message) { if (status) status.textContent = message; }
+  async function copyEmail() {
+    const address = resolveContact();
+    try {
+      if (navigator.clipboard?.writeText && window.isSecureContext) {
+        await navigator.clipboard.writeText(address);
+      } else {
+        const temp = document.createElement("textarea");
+        temp.value = address;
+        temp.setAttribute("readonly", "");
+        temp.style.cssText = "position:fixed;left:-9999px;top:0";
+        document.body.appendChild(temp);
+        temp.select();
+        const ok = document.execCommand("copy");
+        temp.remove();
+        if (!ok) throw new Error("copy unavailable");
+      }
+      showStatus("Email copied to clipboard.");
+    } catch { showStatus("Copy unavailable in this browser. You can type the displayed address or use Send email."); }
+  }
+  function sendEmail() {
+    const address = resolveContact();
+    const route = String.fromCharCode(109,97,105,108,116,111,58);
+    window.location.href = route + address;
+  }
+  copyButton?.addEventListener("click", copyEmail);
+  sendButtons.forEach(button => button?.addEventListener("click", sendEmail));
+  window.addEventListener("resize", drawEmail, {passive:true});
+  if (document.fonts?.ready) document.fonts.ready.then(drawEmail);
+  drawEmail();
+})();
+
 const detailNodes = () => [...document.querySelectorAll("details")];
 const expandBtns = [document.getElementById("expandTop")].filter(Boolean);
 let expanded = false;
