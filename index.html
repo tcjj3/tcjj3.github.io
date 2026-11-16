@@ -9,12 +9,71 @@
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <title>Tan Chaojun — Independent Research, Engineering &amp; Creative Practice</title>
 <meta content="Independent research and cross-disciplinary works by Tan Chaojun, spanning AI / LLM systems, software engineering, cybersecurity, SDR / satellite technology, music composition, MIDI engineering and visual creative practice." name="description"/>
-<!-- Domain deliberately undecided. Avoid canonical, og:url and domain-relative assets until hosting is finalized. -->
+<meta name="author" content="Tan Chaojun"/>
+<link rel="canonical" href="https://tanchaojun.works/"/>
+<link rel="me" href="https://orcid.org/0009-0007-1319-1431"/>
+<link rel="me" href="https://github.com/tcjj3"/>
+<link rel="me" href="https://www.linkedin.com/in/tcjj3/"/>
+<link rel="me" href="https://x.com/tcjj3"/>
 <meta property="og:type" content="website"/>
 <meta property="og:title" content="Tan Chaojun — Independent Research, Engineering &amp; Creative Practice"/>
 <meta property="og:description" content="Independent research, engineering systems, SDR / satellite technology, AI / LLM work, music and creative practice by Tan Chaojun."/>
+<meta property="og:url" content="https://tanchaojun.works/"/>
+<meta property="og:site_name" content="Tan Chaojun — Independent Research, Engineering &amp; Creative Practice"/>
 <meta name="twitter:card" content="summary"/>
 <meta name="theme-color" content="#0b0e12"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://tanchaojun.works/#person",
+      "name": "Tan Chaojun",
+      "alternateName": ["Chaojun Tan", "谭超君"],
+      "url": "https://tanchaojun.works/",
+      "mainEntityOfPage": {"@id": "https://tanchaojun.works/#website"},
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "ORCID",
+        "value": "0009-0007-1319-1431",
+        "url": "https://orcid.org/0009-0007-1319-1431"
+      },
+      "sameAs": [
+        "https://orcid.org/0009-0007-1319-1431",
+        "https://github.com/tcjj3",
+        "https://www.linkedin.com/in/tcjj3/",
+        "https://x.com/tcjj3"
+      ],
+      "alumniOf": {
+        "@type": "CollegeOrUniversity",
+        "name": "Hong Kong Chu Hai College",
+        "sameAs": "https://ror.org/021a2zz52"
+      },
+      "knowsAbout": [
+        "AI and LLM systems",
+        "Cybersecurity",
+        "Reverse engineering",
+        "Software engineering",
+        "Computer networks and systems",
+        "Software-defined radio",
+        "Satellite technology",
+        "Music composition",
+        "MIDI engineering"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://tanchaojun.works/#website",
+      "url": "https://tanchaojun.works/",
+      "name": "Tan Chaojun — Independent Research, Engineering & Creative Practice",
+      "publisher": {"@id": "https://tanchaojun.works/#person"},
+      "about": {"@id": "https://tanchaojun.works/#person"},
+      "inLanguage": "en"
+    }
+  ]
+}
+</script>
 <style>
   :root{
     --bg:#0b0e12;--panel:#11161c;--panel2:#151b22;--line:#27313a;
@@ -51,7 +110,7 @@
   .body{border-top:1px solid var(--line);background:var(--panel2);padding:26px}.twocol{display:grid;grid-template-columns:1.05fr .95fr;gap:40px}.body h4{font-size:.82rem;text-transform:uppercase;letter-spacing:.09em;color:var(--accent);margin-bottom:10px}.body p,.body li{color:#b7c3cf}.body li a{color:#cfe1ff}.body li a:hover{color:var(--accent)}.body ul{margin:0;padding-left:1.2rem}.body li+li{margin-top:7px}
   .career{display:grid;gap:12px}.job{display:grid;grid-template-columns:180px 1fr;gap:24px;border-top:1px solid var(--line);padding-top:18px}.job:first-child{border-top:0;padding-top:0}.job .date{color:var(--muted);font-size:.9rem}.job h3{margin-bottom:4px}.job p{color:var(--muted);margin-bottom:0}
   .bestfit{display:grid;grid-template-columns:1fr 1fr;gap:14px}.bestfit>div{border:1px solid var(--line);background:var(--panel);border-radius:20px;padding:24px}.bestfit p{color:var(--muted);margin-bottom:0}
-  .contact{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end;padding-bottom:110px}.contact p{color:var(--muted);max-width:750px;margin-top:18px;margin-bottom:0}
+  .contact{display:grid;grid-template-columns:1fr;gap:26px;align-items:start;padding-bottom:110px}.contact p{color:var(--muted);max-width:750px;margin-top:18px;margin-bottom:0}.contact>.actions{justify-content:flex-start;align-items:center;gap:10px}.contact>.email-visual{margin-top:8px}
   .footer{border-top:1px solid var(--line);min-height:96px;display:flex;align-items:center;justify-content:space-between;color:var(--muted);font-size:.86rem}
 
 
@@ -181,6 +240,17 @@
   .email-status{min-height:1.2em;color:var(--muted);font-size:.8rem}
   .email-noscript{font-size:.85rem;color:var(--muted)}
   @media(max-width:640px){.email-visual{padding:16px}}
+  /* v40: public research identity layer */
+  .identity-strip{display:grid;grid-template-columns:1fr 1.15fr;gap:14px;margin-top:-26px;margin-bottom:18px}
+  .identity-card{border:1px solid var(--line);border-radius:18px;padding:17px 19px;background:linear-gradient(120deg,rgba(151,255,208,.026),rgba(143,184,255,.022))}
+  .identity-label{display:block;margin-bottom:6px;color:var(--accent);font-size:.69rem;font-weight:850;letter-spacing:.11em;text-transform:uppercase}
+  .identity-card strong{display:block;color:var(--text);font-size:.96rem;line-height:1.35}
+  .identity-card span.identity-meta{display:block;margin-top:5px;color:var(--muted);font-size:.82rem;line-height:1.45}
+  .identity-card a{color:#d8eaff;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(143,184,255,.45)}
+  .identity-card a:hover{color:var(--accent);text-decoration-color:var(--accent)}
+  @media(max-width:760px){.identity-strip{grid-template-columns:1fr;margin-top:-12px}}
+  .orcid-short{display:none}
+  @media(max-width:640px){.contact>.actions{gap:8px}.contact>.actions .btn{padding:9px 13px}.orcid-full{display:none}.orcid-short{display:inline}}
   </style>
 </head>
 <body>
@@ -196,10 +266,12 @@
 </nav>
 <div class="header-actions">
 <div class="quick-links" role="group" aria-label="Direct profile and email links">
-<a class="icon-link" href="https://www.linkedin.com/in/tcjj3/" rel="noopener noreferrer" target="_blank" aria-label="LinkedIn (opens in a new tab)" title="LinkedIn">
+<a class="icon-link" href="https://www.linkedin.com/in/tcjj3/" rel="me noopener noreferrer" target="_blank" aria-label="LinkedIn (opens in a new tab)" title="LinkedIn">
 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7h.01M12 17v-7M12 13a3 3 0 0 1 6 0v4"/></svg></a>
-<a class="icon-link" href="https://github.com/tcjj3" rel="noopener noreferrer" target="_blank" aria-label="GitHub (opens in a new tab)" title="GitHub">
+<a class="icon-link" href="https://github.com/tcjj3" rel="me noopener noreferrer" target="_blank" aria-label="GitHub (opens in a new tab)" title="GitHub">
 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 6v-3.3a3.1 3.1 0 0 0-.8-2.4c2.7-.3 5.5-1.3 5.5-6A4.7 4.7 0 0 0 18.4 7a4.3 4.3 0 0 0-.1-3.2S17.3 3.5 15 5a11 11 0 0 0-6 0C6.7 3.5 5.7 3.8 5.7 3.8A4.3 4.3 0 0 0 5.6 7a4.7 4.7 0 0 0-1.3 3.3c0 4.7 2.8 5.7 5.5 6A3.1 3.1 0 0 0 9 18.7V22"/></svg></a>
+<a class="icon-link" href="https://orcid.org/0009-0007-1319-1431" rel="me noopener noreferrer" target="_blank" aria-label="ORCID 0009-0007-1319-1431 (opens in a new tab)" title="ORCID 0009-0007-1319-1431">
+<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9 9.5v5M9 7.3h.01M12 9.5h2.1a2.9 2.9 0 0 1 0 5.8H12z"/></svg></a>
 <button class="icon-link email-send" type="button" aria-label="Email Tan Chaojun" title="Email">
 <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></button>
 </div>
@@ -243,6 +315,18 @@ My work spans engineering, applied research and creative practice. I investigate
 <div><strong>Where I contribute</strong><span>Roles that value breadth, systems thinking, rapid domain transfer and unusual problem solving.</span></div>
 </div>
 </aside>
+</section>
+<section class="shell identity-strip" aria-label="Research identity and education">
+<div class="identity-card">
+<span class="identity-label">Research identity</span>
+<strong>Tan Chaojun · Chaojun Tan · 谭超君</strong>
+<span class="identity-meta">ORCID · <a href="https://orcid.org/0009-0007-1319-1431" rel="me noopener noreferrer" target="_blank">0009-0007-1319-1431</a></span>
+</div>
+<div class="identity-card">
+<span class="identity-label">Education</span>
+<strong>Master of Science in Applied Artificial Intelligence</strong>
+<span class="identity-meta">Hong Kong Chu Hai College · Department of Computer Science · 2025–2026</span>
+</div>
 </section>
 <section class="shell section" id="profile">
 <div class="section-head">
@@ -1250,9 +1334,10 @@ HimawariCast ───────► Himawari receiver container ─┘        
       </p>
 </div>
 <div class="actions">
-<a class="btn primary" href="https://www.linkedin.com/in/tcjj3/" rel="noopener noreferrer" target="_blank">LinkedIn</a>
-<a class="btn" href="https://github.com/tcjj3" rel="noopener noreferrer" target="_blank">GitHub</a>
-<a class="btn" href="https://x.com/tcjj3" rel="noopener noreferrer" target="_blank">X · Research log ↗</a>
+<a class="btn primary" href="https://www.linkedin.com/in/tcjj3/" rel="me noopener noreferrer" target="_blank">LinkedIn</a>
+<a class="btn contact-orcid" href="https://orcid.org/0009-0007-1319-1431" rel="me noopener noreferrer" target="_blank" aria-label="ORCID 0009-0007-1319-1431 (opens in a new tab)"><span class="orcid-full">ORCID · 0009-0007-1319-1431</span><span class="orcid-short">ORCID</span></a>
+<a class="btn" href="https://github.com/tcjj3" rel="me noopener noreferrer" target="_blank">GitHub</a>
+<a class="btn" href="https://x.com/tcjj3" rel="me noopener noreferrer" target="_blank">X · Research log ↗</a>
 </div>
 <div class="email-visual" aria-label="Email address shown visually. Use Copy email or Send email to contact me.">
   <span class="email-visual-label">EMAIL · DIRECT CONTACT</span>
