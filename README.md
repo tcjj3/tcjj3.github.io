@@ -1,6 +1,6 @@
 # Tan Chaojun — Personal Research & Engineering Portfolio
 
-Source repository for the personal research and engineering portfolio of **Tan Chaojun (Chaojun Tan / 谭超君)**.
+Source repository for the personal research and engineering portfolio of **Tan Chaojun (Chaojun Tan / 譚超君 / 谭超君)**.
 
 - Website: https://tanchaojun.works/
 - ORCID: https://orcid.org/0009-0007-1319-1431
